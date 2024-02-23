@@ -1,0 +1,6 @@
+spring.flyway:
+  enabled: true
+
+logging:
+  level:
+    com.example.moikiitos.repository.mybatis.mapper: DEBUG

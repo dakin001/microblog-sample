@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.3'
+	id 'org.springframework.boot' version '3.1.9'
 	id 'io.spring.dependency-management' version '1.1.4'
 }
 
@@ -22,6 +22,10 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-api:2.3.0'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2")
+	implementation 'com.h2database:h2'
+	// for db migrations
+	implementation 'org.flywaydb:flyway-core'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
