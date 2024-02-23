@@ -1,23 +1,28 @@
 package com.example.moikiitos.repository.mybatis.mapper;
 
-import com.example.moikiitos.account.model.Account;
-import org.apache.ibatis.annotations.Insert;
+import com.example.moikiitos.user.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
 
+    // replace "*" to columns
     @Select("SELECT * FROM `user` WHERE name = #{name}")
-    Account findByName(@Param("name") String name);
+    User findByName(@Param("name") String name);
 
     @Select("SELECT * FROM `user` WHERE email = #{email}")
-    Account findByEmail(@Param("email") String email);
+    User findByEmail(@Param("email") String email);
 
-    @Insert("""
-            INSERT INTO `user` (name, email, password, password_salt)
-            values (#{name}, #{email}, #{password}, #{passwordSalt})
-            """)
-    void insert(Account account);
+    @Select("<script>" +
+            "SELECT id, name, email FROM `user` WHERE id IN " +
+            "<foreach item='item' index='index' collection='ids'" +
+            " open='(' separator=',' close=')'>" +
+            " #{item}" +
+            "</foreach>" +
+            "</script>")
+    List<User> findByIds(@Param("ids") List<Long> ids);
 }

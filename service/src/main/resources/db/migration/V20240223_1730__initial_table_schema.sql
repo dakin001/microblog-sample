@@ -20,8 +20,8 @@ CREATE TABLE `follower` (
   PRIMARY KEY (`id`)
 );
 
-CREATE UNIQUE INDEX ux_follower_id_following_id ON follower (follower_id,following_id);
-CREATE INDEX idx_following_id ON follower (following_id);
+CREATE UNIQUE INDEX ux_follower_id_following_id ON follower (follower_id, following_id);
+CREATE INDEX idx_following_id_follower_id ON follower (following_id, follower_id);
 
 CREATE TABLE `post` (
   `id` bigint NOT NULL auto_increment,

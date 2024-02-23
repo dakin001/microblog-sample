@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface AccountMapper {
 
+    // replace "*" to columns
     @Select("SELECT * FROM `user` WHERE name = #{name}")
     Account findByName(@Param("name") String name);
 

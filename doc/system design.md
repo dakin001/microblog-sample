@@ -25,7 +25,7 @@ source file [./MoiKiitos-openapi.yml](./MoiKiitos-openapi.yml)
 <pre>
     id         bigint    // PK
     follower_id bigint  // unique index  ux_follower_id_following_id
-    following_id bigint // index  idx_following_id
+    following_id bigint // index  idx_following_id_follower_id
     create_at Timestamp
 </pre>
 
