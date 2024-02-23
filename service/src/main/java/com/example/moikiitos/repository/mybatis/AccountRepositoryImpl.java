@@ -2,14 +2,14 @@ package com.example.moikiitos.repository.mybatis;
 
 import com.example.moikiitos.account.model.Account;
 import com.example.moikiitos.account.repository.AccountRepository;
-import com.example.moikiitos.repository.mybatis.mapper.UserMapper;
+import com.example.moikiitos.repository.mybatis.mapper.AccountMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
 public class AccountRepositoryImpl implements AccountRepository {
-    private final UserMapper userMapper;
+    private final AccountMapper userMapper;
 
     @Override
     public void add(Account account) {
