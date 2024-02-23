@@ -19,13 +19,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-public class AccountControllerTest {
+class AccountControllerTest {
     @Mock
-    private AccountService accountService;
-    private MockMvc mockMvc;
+    AccountService accountService;
+    MockMvc mockMvc;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         AccountController controller = new AccountController(accountService);
         this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }

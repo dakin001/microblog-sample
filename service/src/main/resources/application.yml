@@ -4,3 +4,6 @@ spring.flyway:
 logging:
   level:
     com.example.moikiitos.repository.mybatis.mapper: DEBUG
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

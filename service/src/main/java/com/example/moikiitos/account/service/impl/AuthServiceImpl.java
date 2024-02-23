@@ -15,6 +15,15 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(createAuthentication(user));
     }
 
+    @Override
+    public String currentUserName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            return null;
+        }
+        return authentication.getName();
+    }
+
     private Authentication createAuthentication(Account user) {
         return new UsernamePasswordAuthenticationToken(user.getName(), user.getName());
     }
