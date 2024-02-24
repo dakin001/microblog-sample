@@ -2,6 +2,7 @@ package com.example.moikiitos.post.api;
 
 import com.example.moikiitos.post.model.PostCreateDto;
 import com.example.moikiitos.post.service.PostService;
+import com.example.moikiitos.shared.util.LoginContextUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -28,7 +29,7 @@ public class PostController {
             @ApiResponse(responseCode = "400", description = "invalid input, object invalid")})
     @PostMapping
     public ResponseEntity<Void> createPost(@Validated @RequestBody PostCreateDto reqDto) {
-        postService.createPost(reqDto);
+        postService.createPost(LoginContextUtils.currentUser(), reqDto);
 
         return ResponseEntity.created(URI.create("/")).build();
     }

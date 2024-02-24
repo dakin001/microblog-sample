@@ -2,6 +2,7 @@ package com.example.moikiitos.post.api;
 
 import com.example.moikiitos.post.model.PostCreateDto;
 import com.example.moikiitos.post.service.PostService;
+import com.example.moikiitos.user.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,7 +43,7 @@ class PostControllerTest {
                         .content(json))
                 .andExpect(status().isCreated());
 
-        verify(postService, times(1)).createPost(any(PostCreateDto.class));
+        verify(postService, times(1)).createPost(any(), any(PostCreateDto.class));
     }
 
     @Test
@@ -60,6 +61,6 @@ class PostControllerTest {
                         .content(json))
                 .andExpect(status().isBadRequest());
 
-        verify(postService, never()).createPost(any(PostCreateDto.class));
+        verify(postService, never()).createPost(any(User.class), any(PostCreateDto.class));
     }
 }
