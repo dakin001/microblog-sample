@@ -4,6 +4,8 @@ import com.example.moikiitos.account.model.AccountExistsException;
 import com.example.moikiitos.account.model.AccountLoginDto;
 import com.example.moikiitos.account.model.AccountRegistrationDto;
 import com.example.moikiitos.account.service.AccountService;
+import com.example.moikiitos.shared.util.LoginContextUtils;
+import com.example.moikiitos.user.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,20 +34,28 @@ class AccountControllerTest {
 
     @Test
     void login_rightPassword_success() throws Exception {
-        String json = """ 
-                {
-                  "nameOrEmail": "Sean",
-                  "password": "123456"
-                }
-                """;
+        try (var mockedStatic =
+                     mockStatic(LoginContextUtils.class)) {
+            String json = """ 
+                    {
+                      "nameOrEmail": "Sean",
+                      "password": "123456"
+                    }
+                    """;
+            User loginUser = new User();
 
-        when(accountService.login(any(AccountLoginDto.class))).thenReturn(true);
+            when(accountService.login(any(AccountLoginDto.class))).thenReturn(loginUser);
 
-        this.mockMvc.perform(post("/account/login")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(json))
-                .andExpect(status().isNoContent());
+            this.mockMvc.perform(post("/account/login")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .accept(MediaType.APPLICATION_JSON)
+                            .content(json))
+                    .andExpect(status().isNoContent());
+            mockedStatic.verify(
+                    () -> LoginContextUtils.setLoginUser(eq(loginUser)),
+                    times(1)
+            );
+        }
     }
 
     @Test
@@ -57,7 +67,7 @@ class AccountControllerTest {
                 }
                 """;
 
-        when(accountService.login(any(AccountLoginDto.class))).thenReturn(false);
+        when(accountService.login(any(AccountLoginDto.class))).thenReturn(null);
 
         this.mockMvc.perform(post("/account/login")
                         .contentType(MediaType.APPLICATION_JSON)

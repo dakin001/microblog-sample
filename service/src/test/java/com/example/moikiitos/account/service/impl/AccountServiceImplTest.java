@@ -5,7 +5,6 @@ import com.example.moikiitos.account.model.AccountExistsException;
 import com.example.moikiitos.account.model.AccountLoginDto;
 import com.example.moikiitos.account.model.AccountRegistrationDto;
 import com.example.moikiitos.account.repository.AccountRepository;
-import com.example.moikiitos.account.service.AuthService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,14 +23,12 @@ class AccountServiceImplTest {
 
     @Mock
     AccountRepository repository;
-    @Mock
-    AuthService authService;
 
     AccountServiceImpl service;
 
     @BeforeEach
     public void setUp() {
-        service = new AccountServiceImpl(repository, authService);
+        service = new AccountServiceImpl(repository);
     }
 
     @Test
@@ -104,11 +101,10 @@ class AccountServiceImplTest {
         when(repository.findByEmail(anyString())).thenReturn(exitsAccount);
 
         // WHEN
-        boolean loginSuccess = service.login(loginDto);
+        boolean loginSuccess = service.login(loginDto) != null;
 
         // THEN
         assertTrue(loginSuccess);
-        verify(authService, times(1)).login(any(Account.class));
     }
 
     @Test
@@ -126,11 +122,10 @@ class AccountServiceImplTest {
         when(repository.findByName(anyString())).thenReturn(exitsAccount);
 
         // WHEN
-        boolean loginSuccess = service.login(loginDto);
+        boolean loginSuccess = service.login(loginDto) != null;
 
         // THEN
         assertTrue(loginSuccess);
-        verify(authService, times(1)).login(any(Account.class));
     }
 
     @Test
@@ -144,11 +139,10 @@ class AccountServiceImplTest {
         when(repository.findByName(anyString())).thenReturn(exitsAccount);
 
         // WHEN
-        boolean loginSuccess = service.login(loginDto);
+        boolean loginSuccess = service.login(loginDto) != null;
 
         // THEN
         assertFalse(loginSuccess);
-        verify(authService, never()).login(any(Account.class));
     }
 
     @Test
@@ -166,11 +160,11 @@ class AccountServiceImplTest {
         when(repository.findByName(anyString())).thenReturn(exitsAccount);
 
         // WHEN
-        boolean loginSuccess = service.login(loginDto);
+        boolean loginSuccess = service.login(loginDto) != null;
 
         // THEN
         assertFalse(loginSuccess);
-        verify(authService, never()).login(any(Account.class));
-    }
 
+
+    }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 
 @UtilityClass
 public class LoginContextUtils {
+    public static final String SESSION_USER = "user";
 
     public static void setLoginUser(User user) {
         var auth = UsernamePasswordAuthenticationToken.authenticated(user.getName(),
@@ -18,15 +19,7 @@ public class LoginContextUtils {
         SecurityContextHolder.getContext().setAuthentication(auth);
     }
 
-    public static String currentUserName() {
-        var user = currentUser();
-        if (user == null) {
-            return null;
-        }
-        return user.getName();
-    }
-
-    public static User currentUser() {
+    public static User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) {
             return null;

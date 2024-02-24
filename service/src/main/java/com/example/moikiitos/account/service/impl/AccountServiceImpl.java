@@ -6,7 +6,7 @@ import com.example.moikiitos.account.model.AccountLoginDto;
 import com.example.moikiitos.account.model.AccountRegistrationDto;
 import com.example.moikiitos.account.repository.AccountRepository;
 import com.example.moikiitos.account.service.AccountService;
-import com.example.moikiitos.account.service.AuthService;
+import com.example.moikiitos.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +18,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
     private final AccountRepository repository;
-    private final AuthService authService;
 
     @Override
     public void register(AccountRegistrationDto registrationDto) {
@@ -30,17 +29,25 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean login(AccountLoginDto loginDto) {
+    public User login(AccountLoginDto loginDto) {
         Account account = getAccountByNameOrEmail(loginDto.getNameOrEmail());
         if (account == null) {
-            return false;
+            return null;
         }
         if (passwordNotMatch(loginDto, account)) {
-            return false;
+            return null;
         }
 
-        authService.login(account);
-        return true;
+        return getUser(account);
+    }
+
+    private User getUser(Account account) {
+        User user = new User();
+        user.setId(account.getId());
+        user.setName(account.getName());
+        user.setEmail(account.getEmail());
+
+        return user;
     }
 
     private boolean passwordNotMatch(AccountLoginDto loginDto, Account account) {

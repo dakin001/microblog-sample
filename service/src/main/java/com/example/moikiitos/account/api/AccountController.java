@@ -4,9 +4,12 @@ import com.example.moikiitos.account.model.AccountExistsException;
 import com.example.moikiitos.account.model.AccountLoginDto;
 import com.example.moikiitos.account.model.AccountRegistrationDto;
 import com.example.moikiitos.account.service.AccountService;
+import com.example.moikiitos.shared.util.LoginContextUtils;
+import com.example.moikiitos.user.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+
+import static com.example.moikiitos.shared.util.LoginContextUtils.SESSION_USER;
 
 @RestController
 @RequestMapping("/account")
@@ -31,11 +36,15 @@ public class AccountController {
             @ApiResponse(responseCode = "400", description = "account or password not correct")})
 
     @PostMapping("login")
-    public ResponseEntity<Object> login(@Validated @RequestBody AccountLoginDto loginDto) {
-        boolean loginSuccess = accountService.login(loginDto);
-        if (!loginSuccess) {
+    public ResponseEntity<Object> login(@Validated @RequestBody AccountLoginDto loginDto, HttpSession httpSession) {
+        User loginUser = accountService.login(loginDto);
+        if (loginUser == null) {
             return ResponseEntity.badRequest().body("account or password not correct");
         }
+
+        httpSession.setAttribute(SESSION_USER, loginUser);
+        LoginContextUtils.setLoginUser(loginUser);
+
         return ResponseEntity.noContent().build();
     }
 

@@ -1,6 +1,5 @@
 package com.example.moikiitos.user.api;
 
-import com.example.moikiitos.account.service.AuthService;
 import com.example.moikiitos.shared.util.LoginContextUtils;
 import com.example.moikiitos.user.model.User;
 import com.example.moikiitos.user.model.UserFollowQueryDto;
@@ -27,22 +26,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
     @Mock
     UserService userService;
     @Mock
     UserQueryService userQueryService;
-    @Mock
-    AuthService authService;
     MockMvc mockMvc;
 
     User loginUser;
 
     @BeforeEach
     void setUp() {
-        UserController controller = new UserController(userService, userQueryService, authService);
+        UserController controller = new UserController(userService, userQueryService);
         this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         loginUser = new User();
@@ -53,7 +49,7 @@ class UserControllerTest {
     void follow_loginStatus_success() throws Exception {
         try (var mockedStatic =
                      mockStatic(LoginContextUtils.class)) {
-            mockedStatic.when(LoginContextUtils::currentUser).thenReturn(loginUser);
+            mockedStatic.when(LoginContextUtils::getCurrentUser).thenReturn(loginUser);
 
             String user2 = "User2";
 
@@ -68,7 +64,7 @@ class UserControllerTest {
     void unfollow_loginStatus_success() throws Exception {
         try (var mockedStatic =
                      mockStatic(LoginContextUtils.class)) {
-            mockedStatic.when(LoginContextUtils::currentUser).thenReturn(loginUser);
+            mockedStatic.when(LoginContextUtils::getCurrentUser).thenReturn(loginUser);
 
             String user2 = "User2";
 

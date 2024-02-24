@@ -29,7 +29,7 @@ public class PostController {
             @ApiResponse(responseCode = "400", description = "invalid input, object invalid")})
     @PostMapping
     public ResponseEntity<Void> createPost(@Validated @RequestBody PostCreateDto reqDto) {
-        postService.createPost(LoginContextUtils.currentUser(), reqDto);
+        postService.createPost(LoginContextUtils.getCurrentUser(), reqDto);
 
         return ResponseEntity.created(URI.create("/")).build();
     }
