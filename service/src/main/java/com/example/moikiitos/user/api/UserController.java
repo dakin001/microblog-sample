@@ -1,6 +1,7 @@
 package com.example.moikiitos.user.api;
 
 import com.example.moikiitos.account.service.AuthService;
+import com.example.moikiitos.shared.util.LoginContextUtils;
 import com.example.moikiitos.user.model.User;
 import com.example.moikiitos.user.model.UserFollowQueryDto;
 import com.example.moikiitos.user.model.UserQueryDto;
@@ -29,7 +30,7 @@ public class UserController {
             @ApiResponse(responseCode = "204", description = "successful")})
     @PostMapping("{name}/follow")
     public ResponseEntity<Void> follow(@PathVariable("name") String name) {
-        String user = authService.currentUserName();
+        User user = LoginContextUtils.currentUser();
         if (user != null) {
             userService.follow(user, name);
         }
@@ -42,7 +43,7 @@ public class UserController {
             @ApiResponse(responseCode = "204", description = "successful")})
     @PostMapping("{name}/unfollow")
     public ResponseEntity<Void> unfollow(@PathVariable("name") String name) {
-        String user = authService.currentUserName();
+        User user = LoginContextUtils.currentUser();
         if (user != null) {
             userService.unfollow(user, name);
         }

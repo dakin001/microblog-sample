@@ -1,8 +1,10 @@
 package com.example.moikiitos.user.service;
 
+import com.example.moikiitos.user.model.User;
+
 public interface UserService {
 
-    void follow(String follower, String following);
+    void follow(User follower, String following);
 
-    void unfollow(String follower, String following);
+    void unfollow(User follower, String following);
 }

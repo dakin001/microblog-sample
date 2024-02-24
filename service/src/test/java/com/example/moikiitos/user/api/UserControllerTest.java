@@ -1,6 +1,7 @@
 package com.example.moikiitos.user.api;
 
 import com.example.moikiitos.account.service.AuthService;
+import com.example.moikiitos.shared.util.LoginContextUtils;
 import com.example.moikiitos.user.model.User;
 import com.example.moikiitos.user.model.UserFollowQueryDto;
 import com.example.moikiitos.user.model.UserQueryDto;
@@ -20,8 +21,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -38,34 +38,45 @@ class UserControllerTest {
     AuthService authService;
     MockMvc mockMvc;
 
+    User loginUser;
+
     @BeforeEach
     void setUp() {
         UserController controller = new UserController(userService, userQueryService, authService);
         this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
+        loginUser = new User();
+        loginUser.setName("user1");
     }
 
     @Test
     void follow_loginStatus_success() throws Exception {
-        String loginUser = "User1";
-        String user2 = "User2";
-        when(authService.currentUserName()).thenReturn(loginUser);
+        try (var mockedStatic =
+                     mockStatic(LoginContextUtils.class)) {
+            mockedStatic.when(LoginContextUtils::currentUser).thenReturn(loginUser);
 
-        doNothing().when(userService).follow(eq(loginUser), eq(user2));
+            String user2 = "User2";
 
-        this.mockMvc.perform(post("/users/" + user2 + "/follow"))
-                .andExpect(status().is2xxSuccessful());
+            doNothing().when(userService).follow(loginUser, user2);
+
+            this.mockMvc.perform(post("/users/" + user2 + "/follow"))
+                    .andExpect(status().is2xxSuccessful());
+        }
     }
 
     @Test
     void unfollow_loginStatus_success() throws Exception {
-        String loginUser = "User1";
-        String user2 = "User2";
-        when(authService.currentUserName()).thenReturn(loginUser);
+        try (var mockedStatic =
+                     mockStatic(LoginContextUtils.class)) {
+            mockedStatic.when(LoginContextUtils::currentUser).thenReturn(loginUser);
 
-        doNothing().when(userService).unfollow(eq(loginUser), eq(user2));
+            String user2 = "User2";
 
-        this.mockMvc.perform(post("/users/" + user2 + "/unfollow"))
-                .andExpect(status().is2xxSuccessful());
+            doNothing().when(userService).unfollow(eq(loginUser), eq(user2));
+
+            this.mockMvc.perform(post("/users/" + user2 + "/unfollow"))
+                    .andExpect(status().is2xxSuccessful());
+        }
     }
 
     @Test

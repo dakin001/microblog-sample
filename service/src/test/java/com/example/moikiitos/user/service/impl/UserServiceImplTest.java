@@ -36,11 +36,10 @@ class UserServiceImplTest {
         user1.setName("user1");
         User user2 = new User();
         user1.setName("user2");
-        when(userQueryRepository.findByName("user1")).thenReturn(user1);
         when(userQueryRepository.findByName("user2")).thenReturn(user2);
 
         // WHEN
-        service.follow("user1", "user2");
+        service.follow(user1, "user2");
 
         // THEN
         verify(followerRepository, Mockito.times(1)).add(any(Follower.class));
@@ -53,12 +52,11 @@ class UserServiceImplTest {
         user1.setName("user1");
         User user2 = new User();
         user1.setName("user2");
-        when(userQueryRepository.findByName("user1")).thenReturn(user1);
         when(userQueryRepository.findByName("user2")).thenReturn(user2);
         when(followerRepository.isExists(any(Follower.class))).thenReturn(true);
 
         // WHEN
-        service.follow("user1", "user2");
+        service.follow(user1, "user2");
 
         // THEN
         verify(followerRepository, never()).add(any(Follower.class));
@@ -71,11 +69,10 @@ class UserServiceImplTest {
         user1.setName("user1");
         User user2 = new User();
         user1.setName("user2");
-        when(userQueryRepository.findByName("user1")).thenReturn(user1);
         when(userQueryRepository.findByName("user2")).thenReturn(user2);
 
         // WHEN
-        service.unfollow("user1", "user2");
+        service.unfollow(user1, "user2");
 
         // THEN
         verify(followerRepository, Mockito.times(1)).remove(any(Follower.class));
