@@ -3,7 +3,6 @@ CREATE TABLE `user` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `password_salt` varchar(255) DEFAULT NULL,
   `create_at` timestamp null default now(),
   `update_at` timestamp null default now(),
   PRIMARY KEY (`id`)

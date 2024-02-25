@@ -10,5 +10,5 @@ public class AccountLoginDto {
     @NotEmpty
     private String nameOrEmail;
     @NotEmpty
-    private String password;
+    private char[] password;
 }

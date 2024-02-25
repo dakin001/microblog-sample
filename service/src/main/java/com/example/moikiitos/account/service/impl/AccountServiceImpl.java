@@ -12,8 +12,6 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
@@ -51,7 +49,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private boolean passwordNotMatch(AccountLoginDto loginDto, Account account) {
-        return !passwordMatch(loginDto.getPassword(), account.getPasswordSalt(), account.getPassword());
+        return !passwordMatch(loginDto.getPassword(), account.getPassword());
     }
 
     private void validate(AccountRegistrationDto registrationDto) {
@@ -65,16 +63,13 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
-
     private Account constructAccount(AccountRegistrationDto registrationDto) {
         Account account = new Account();
         account.setName(registrationDto.getName());
         account.setEmail(registrationDto.getEmail());
-        account.setPasswordSalt(UUID.randomUUID().toString());
-        account.setPassword(hashPassword(registrationDto.getPassword(), account.getPasswordSalt()));
+        account.setPassword(hashPassword(registrationDto.getPassword()));
         return account;
     }
-
 
     private Account getAccountByNameOrEmail(String nameOrEmail) {
         Account account = repository.findByName(nameOrEmail);
@@ -84,23 +79,15 @@ public class AccountServiceImpl implements AccountService {
         return repository.findByEmail(nameOrEmail);
     }
 
-    private String hashPassword(CharSequence password, String passwordSalt) {
+    private String hashPassword(char[] password) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         // {bcrypt}
-        return passwordEncoder.encode(getSaltPassword(password, passwordSalt));
+        return passwordEncoder.encode(new String(password));
     }
 
-    private CharSequence getSaltPassword(CharSequence password, String passwordSalt) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(password);
-        sb.append(passwordSalt);
-
-        return sb;
-    }
-
-    private boolean passwordMatch(CharSequence password, String passwordSalt, String encodedPassword) {
+    private boolean passwordMatch(char[] password, String encodedPassword) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
-        return passwordEncoder.matches(getSaltPassword(password, passwordSalt), encodedPassword);
+        return passwordEncoder.matches(new String(password), encodedPassword);
     }
 }

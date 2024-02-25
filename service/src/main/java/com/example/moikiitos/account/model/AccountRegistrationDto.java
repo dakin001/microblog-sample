@@ -14,5 +14,5 @@ public class AccountRegistrationDto {
     @Email
     private String email;
     @NotEmpty
-    private String password;
+    private char[] password;
 }

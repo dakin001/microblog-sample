@@ -9,16 +9,15 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface AccountMapper {
 
-    // replace "*" to columns
-    @Select("SELECT * FROM `user` WHERE name = #{name}")
+    @Select("SELECT id, name, email, password FROM `user` WHERE name = #{name}")
     Account findByName(@Param("name") String name);
 
-    @Select("SELECT * FROM `user` WHERE email = #{email}")
+    @Select("SELECT id, name, email, password FROM `user` WHERE email = #{email}")
     Account findByEmail(@Param("email") String email);
 
     @Insert("""
-            INSERT INTO `user` (name, email, password, password_salt)
-            values (#{name}, #{email}, #{password}, #{passwordSalt})
+            INSERT INTO `user` (name, email, password)
+            values (#{name}, #{email}, #{password})
             """)
     void insert(Account account);
 }

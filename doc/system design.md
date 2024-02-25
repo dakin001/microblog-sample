@@ -16,7 +16,6 @@ source file [./MoiKiitos-openapi.yml](./MoiKiitos-openapi.yml)
     name varchar(255)  // unique index
     email varchar(255) // unique index
     password varchar(255) // encrypted string
-    password_salt  varchar(255)  
     create_at Timestamp
     update_at Timestamp
 </pre>

@@ -37,7 +37,7 @@ class AccountServiceImplTest {
         AccountRegistrationDto registrationDto = new AccountRegistrationDto();
         registrationDto.setName("Sean");
         registrationDto.setEmail("Sean@example.com");
-        registrationDto.setPassword("123456");
+        registrationDto.setPassword("123456".toCharArray());
 
         // WHEN
         service.register(registrationDto);
@@ -56,7 +56,7 @@ class AccountServiceImplTest {
         AccountRegistrationDto registrationDto = new AccountRegistrationDto();
         registrationDto.setName("Sean");
         registrationDto.setEmail("Sean@example.com");
-        registrationDto.setPassword("123456");
+        registrationDto.setPassword("123456".toCharArray());
 
         Account exitsAccount = new Account();
         when(repository.findByName(anyString())).thenReturn(exitsAccount);
@@ -74,7 +74,7 @@ class AccountServiceImplTest {
         AccountRegistrationDto registrationDto = new AccountRegistrationDto();
         registrationDto.setName("Sean");
         registrationDto.setEmail("Sean@example.com");
-        registrationDto.setPassword("123456");
+        registrationDto.setPassword("123456".toCharArray());
 
         Account exitsAccount = new Account();
         when(repository.findByEmail(anyString())).thenReturn(exitsAccount);
@@ -91,13 +91,12 @@ class AccountServiceImplTest {
         // CASE
         AccountLoginDto loginDto = new AccountLoginDto();
         loginDto.setNameOrEmail("Sean@example.com");
-        loginDto.setPassword("123456");
+        loginDto.setPassword("123456".toCharArray());
 
         Account exitsAccount = new Account();
         exitsAccount.setName("Sean");
         exitsAccount.setEmail("Sean@example.com");
-        exitsAccount.setPasswordSalt("123");
-        exitsAccount.setPassword("{bcrypt}$2a$10$EOWIrExEqX4ScNZ8i60hE.G/5Oz0U8vaNIEOOw.g6uahA8nDgrxqG");
+        exitsAccount.setPassword("{bcrypt}$2a$10$oO739LQrUgK3HO9.Yd5IOOaGinCwnfvGzylgrm7qBj0d5EJ8Frnb2");
         when(repository.findByEmail(anyString())).thenReturn(exitsAccount);
 
         // WHEN
@@ -112,13 +111,12 @@ class AccountServiceImplTest {
         // CASE
         AccountLoginDto loginDto = new AccountLoginDto();
         loginDto.setNameOrEmail("Sean");
-        loginDto.setPassword("123456");
+        loginDto.setPassword("123456".toCharArray());
 
         Account exitsAccount = new Account();
         exitsAccount.setName("Sean");
         exitsAccount.setEmail("Sean@example.com");
-        exitsAccount.setPasswordSalt("123");
-        exitsAccount.setPassword("{bcrypt}$2a$10$EOWIrExEqX4ScNZ8i60hE.G/5Oz0U8vaNIEOOw.g6uahA8nDgrxqG");
+        exitsAccount.setPassword("{bcrypt}$2a$10$oO739LQrUgK3HO9.Yd5IOOaGinCwnfvGzylgrm7qBj0d5EJ8Frnb2");
         when(repository.findByName(anyString())).thenReturn(exitsAccount);
 
         // WHEN
@@ -133,7 +131,7 @@ class AccountServiceImplTest {
         // CASE
         AccountLoginDto loginDto = new AccountLoginDto();
         loginDto.setNameOrEmail("Sean");
-        loginDto.setPassword("111111");
+        loginDto.setPassword("111111".toCharArray());
 
         Account exitsAccount = null;
         when(repository.findByName(anyString())).thenReturn(exitsAccount);
@@ -150,13 +148,12 @@ class AccountServiceImplTest {
         // CASE
         AccountLoginDto loginDto = new AccountLoginDto();
         loginDto.setNameOrEmail("Sean");
-        loginDto.setPassword("111111");
+        loginDto.setPassword("111111".toCharArray());
 
         Account exitsAccount = new Account();
         exitsAccount.setName("Sean");
         exitsAccount.setEmail("Sean@example.com");
-        exitsAccount.setPasswordSalt("123");
-        exitsAccount.setPassword("{bcrypt}$2a$10$EOWIrExEqX4ScNZ8i60hE.G/5Oz0U8vaNIEOOw.g6uahA8nDgrxqG");
+        exitsAccount.setPassword("{bcrypt}$2a$10$oO739LQrUgK3HO9.Yd5IOOaGinCwnfvGzylgrm7qBj0d5EJ8Frnb2");
         when(repository.findByName(anyString())).thenReturn(exitsAccount);
 
         // WHEN
