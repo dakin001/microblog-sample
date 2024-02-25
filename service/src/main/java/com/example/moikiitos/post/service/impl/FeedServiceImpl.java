@@ -25,6 +25,6 @@ public class FeedServiceImpl implements FeedService {
             return new ArrayList<>();
         }
 
-        return repository.queryFeed(user.getId(), reqDto);
+        return repository.findFeedByUserId(user.getId(), reqDto);
     }
 }

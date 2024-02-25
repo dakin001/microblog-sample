@@ -43,6 +43,6 @@ class FeedServiceImplTest {
         service.queryUserFeed(queryDto);
 
         // THEN
-        verify(postRepository, Mockito.times(1)).queryFeed(1L, queryDto);
+        verify(postRepository, Mockito.times(1)).findFeedByUserId(1L, queryDto);
     }
 }

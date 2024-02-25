@@ -1,10 +1,7 @@
 package com.example.moikiitos.repository.mybatis.mapper;
 
 import com.example.moikiitos.account.model.Account;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface AccountMapper {
@@ -15,6 +12,7 @@ public interface AccountMapper {
     @Select("SELECT id, name, email, password FROM `user` WHERE email = #{email}")
     Account findByEmail(@Param("email") String email);
 
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     @Insert("""
             INSERT INTO `user` (name, email, password)
             values (#{name}, #{email}, #{password})

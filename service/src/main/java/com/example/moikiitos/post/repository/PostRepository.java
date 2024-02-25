@@ -8,5 +8,5 @@ import java.util.List;
 public interface PostRepository {
     void add(Post post);
 
-    List<Post> queryFeed(Long userId, PageQuery page);
+    List<Post> findFeedByUserId(Long userId, PageQuery page);
 }
