@@ -7,6 +7,8 @@ import com.example.moikiitos.user.model.User;
 import com.example.moikiitos.user.model.UserFollowQueryDto;
 import com.example.moikiitos.user.repository.FollowerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -14,13 +16,18 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class FollowerRepositoryImpl implements FollowerRepository {
     private final FollowerMapper followerMapper;
     private final UserMapper userMapper;
 
     @Override
     public void add(Follower follower) {
-        followerMapper.insert(follower);
+        try {
+            followerMapper.insert(follower);
+        } catch (DuplicateKeyException ex) {
+            log.info("follow records already exists.");
+        }
     }
 
     @Override
