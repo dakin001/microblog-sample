@@ -1,5 +1,6 @@
 package com.example.moikiitos.account.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -16,6 +17,7 @@ public class AccountRegistrationDto {
     @Email
     @Size(max = 100)
     private String email;
+    @Schema(example = "***")
     @NotEmpty
     @Size(max = 100)
     private char[] password;
