@@ -112,6 +112,23 @@ class AccountControllerTest {
     }
 
     @Test
+    void register_invalidEmail_fail() throws Exception {
+        String json = """ 
+                {
+                  "name": "Sean",
+                  "email": "sean&example",
+                  "password": "123456"
+                }
+                """;
+
+        this.mockMvc.perform(post("/account/registration")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void register_unavailableAccount_fail() throws Exception {
         String json = """ 
                 {
