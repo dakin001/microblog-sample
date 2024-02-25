@@ -13,7 +13,7 @@ public interface FollowerRepository {
 
     boolean isExists(Follower follower);
 
-    List<User> listFollowers(UserFollowQueryDto followQueryDto);
+    List<User> findFollowers(UserFollowQueryDto followQueryDto);
 
-    List<User> listFollowing(UserFollowQueryDto followQueryDto);
+    List<User> findFollowing(UserFollowQueryDto followQueryDto);
 }

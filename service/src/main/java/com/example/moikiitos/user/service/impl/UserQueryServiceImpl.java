@@ -24,11 +24,11 @@ public class UserQueryServiceImpl implements UserQueryService {
 
     @Override
     public List<User> listFollowers(UserFollowQueryDto followQueryDto) {
-        return followerRepository.listFollowers(followQueryDto);
+        return followerRepository.findFollowers(followQueryDto);
     }
 
     @Override
     public List<User> listFollowing(UserFollowQueryDto followQueryDto) {
-        return followerRepository.listFollowing(followQueryDto);
+        return followerRepository.findFollowing(followQueryDto);
     }
 }

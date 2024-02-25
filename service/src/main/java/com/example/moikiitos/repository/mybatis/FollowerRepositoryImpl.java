@@ -34,13 +34,13 @@ public class FollowerRepositoryImpl implements FollowerRepository {
     }
 
     @Override
-    public List<User> listFollowers(UserFollowQueryDto queryDto) {
+    public List<User> findFollowers(UserFollowQueryDto queryDto) {
         var user = userMapper.findByName(queryDto.getName());
         if (user == null) {
             return new ArrayList<>();
         }
 
-        List<Long> ids = followerMapper.listFollowers(user.getId(), queryDto);
+        List<Long> ids = followerMapper.findFollowersByUserId(user.getId(), queryDto);
         if (ids.isEmpty()) {
             return new ArrayList<>();
         }
@@ -48,13 +48,13 @@ public class FollowerRepositoryImpl implements FollowerRepository {
     }
 
     @Override
-    public List<User> listFollowing(UserFollowQueryDto queryDto) {
+    public List<User> findFollowing(UserFollowQueryDto queryDto) {
         var user = userMapper.findByName(queryDto.getName());
         if (user == null) {
             return new ArrayList<>();
         }
 
-        List<Long> ids = followerMapper.listFollowing(user.getId(), queryDto);
+        List<Long> ids = followerMapper.findFollowingByUserId(user.getId(), queryDto);
         if (ids.isEmpty()) {
             return new ArrayList<>();
         }

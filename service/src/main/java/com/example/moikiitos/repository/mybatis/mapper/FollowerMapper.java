@@ -33,12 +33,12 @@ public interface FollowerMapper {
             WHERE FOLLOWING_ID = #{userId} limit #{page.limit}
             """
     )
-    List<Long> listFollowers(@Param("userId") Long userId, @Param("page") PageQuery page);
+    List<Long> findFollowersByUserId(@Param("userId") Long userId, @Param("page") PageQuery page);
 
     @Select("""
-            SELECT FOLLOWING_ID as id FROM `FOLLOWER` 
+            SELECT FOLLOWING_ID as id FROM `FOLLOWER`
             WHERE FOLLOWER_ID = #{userId} limit #{page.limit}
             """
     )
-    List<Long> listFollowing(@Param("userId") Long userId, @Param("page") PageQuery page);
+    List<Long> findFollowingByUserId(@Param("userId") Long userId, @Param("page") PageQuery page);
 }
