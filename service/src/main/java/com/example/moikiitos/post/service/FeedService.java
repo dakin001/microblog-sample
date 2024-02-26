@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface FeedService {
     List<Post> queryUserFeed(FeedQueryDto reqDto);
+
+    void addPostIntoFeed(Post post);
 }

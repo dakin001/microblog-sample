@@ -1,6 +1,9 @@
 
 # Moikiitos System Design
 
+## Architecture
+
+![flow](./images/micro%20blogs.drawio.png) 
 
 ## Api Design  
 

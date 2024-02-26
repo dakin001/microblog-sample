@@ -1,9 +1,14 @@
 package com.example.moikiitos.post.service.impl;
 
 import com.example.moikiitos.post.model.FeedQueryDto;
+import com.example.moikiitos.post.model.Post;
+import com.example.moikiitos.post.repository.FeedCacheRepository;
 import com.example.moikiitos.post.repository.PostRepository;
+import com.example.moikiitos.shared.AppConfig;
+import com.example.moikiitos.shared.PageResult;
 import com.example.moikiitos.user.model.User;
-import com.example.moikiitos.user.repository.UserQueryRepository;
+import com.example.moikiitos.user.model.UserFollowQueryDto;
+import com.example.moikiitos.user.service.UserQueryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,8 +16,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class FeedServiceImplTest {
@@ -20,29 +28,99 @@ class FeedServiceImplTest {
     @Mock
     PostRepository postRepository;
     @Mock
-    UserQueryRepository userQueryRepository;
+    FeedCacheRepository feedCacheRepository;
+    @Mock
+    UserQueryService userQueryService;
 
     FeedServiceImpl service;
 
     @BeforeEach
     void setUp() {
-        service = new FeedServiceImpl(postRepository, userQueryRepository);
+        AppConfig appConfig = new AppConfig();
+        appConfig.setBigVerifiedAccountFollowerSize(10);
+        service = new FeedServiceImpl(postRepository, feedCacheRepository, userQueryService, appConfig);
     }
 
     @Test
-    void queryUserFeed() {
+    void queryUserFeed_noCache_saveCache() {
         // CASE
         FeedQueryDto queryDto = new FeedQueryDto();
         queryDto.setUserId(1L);
-        User user = new User();
-        user.setId(1L);
-        user.setName("user1");
-        when(userQueryRepository.findById(1L)).thenReturn(user);
+        when(feedCacheRepository.findByUserId(queryDto.getUserId(), queryDto)).thenReturn(null);
 
         // WHEN
         service.queryUserFeed(queryDto);
 
         // THEN
         verify(postRepository, Mockito.times(1)).findFeedByUserId(1L, queryDto);
+        verify(feedCacheRepository, Mockito.times(1)).save(any(), any());
+    }
+
+    @Test
+    void queryUserFeed_emptyCache_returnCache() {
+        // CASE
+        FeedQueryDto queryDto = new FeedQueryDto();
+        queryDto.setUserId(1L);
+        when(feedCacheRepository.findByUserId(queryDto.getUserId(), queryDto)).thenReturn(List.of());
+
+        // WHEN
+        service.queryUserFeed(queryDto);
+
+        // THEN
+        verify(postRepository, never()).findFeedByUserId(any(), any(FeedQueryDto.class));
+    }
+
+    @Test
+    void addPostIntoFeed_smallFollowerSize_updatePosterAndAllFollower() {
+        // CASE
+        User user = new User();
+        user.setId(10000L);
+
+        List<User> followers = getUsers(2);
+
+        Post post = new Post();
+        post.setUser(user);
+
+        when(userQueryService.listFollowers(any(UserFollowQueryDto.class)))
+                .thenReturn(new PageResult<>(followers));
+
+        // WHEN
+        service.addPostIntoFeed(post);
+
+        // THEN
+        verify(feedCacheRepository, times(1)).addItemIfCacheExists(user.getId(), post);
+        verify(feedCacheRepository, times(1)).addItemIfCacheExists(2L, post);
+        verify(feedCacheRepository, times(3)).addItemIfCacheExists(any(), any());
+    }
+
+    @Test
+    void addPostIntoFeed_bigFollowerSize_updatePosterOnly() {
+        // CASE
+        User user = new User();
+        user.setId(10000L);
+
+        List<User> followers = getUsers(21);
+
+        Post post = new Post();
+        post.setUser(user);
+
+        when(userQueryService.listFollowers(any(UserFollowQueryDto.class)))
+                .thenReturn(new PageResult<>(followers));
+
+        // WHEN
+        service.addPostIntoFeed(post);
+
+        // THEN
+        verify(feedCacheRepository, times(1)).addItemIfCacheExists(any(), any());
+    }
+
+    private List<User> getUsers(int size) {
+        List<User> followers = new ArrayList<>();
+        for (int i = 1; i <= size; i++) {
+            User user2 = new User();
+            user2.setId((long) i);
+            followers.add(user2);
+        }
+        return followers;
     }
 }
