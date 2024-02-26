@@ -1,5 +1,6 @@
 package com.example.moikiitos.user.service.impl;
 
+import com.example.moikiitos.mq.MqProducerService;
 import com.example.moikiitos.user.model.Follower;
 import com.example.moikiitos.user.model.User;
 import com.example.moikiitos.user.repository.FollowerRepository;
@@ -21,12 +22,13 @@ class UserServiceImplTest {
     FollowerRepository followerRepository;
     @Mock
     UserQueryRepository userQueryRepository;
-
+    @Mock
+    MqProducerService mqService;
     UserServiceImpl service;
 
     @BeforeEach
     void setUp() {
-        service = new UserServiceImpl(followerRepository, userQueryRepository);
+        service = new UserServiceImpl(followerRepository, userQueryRepository, mqService);
     }
 
     @Test

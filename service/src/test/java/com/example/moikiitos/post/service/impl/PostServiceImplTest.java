@@ -1,5 +1,6 @@
 package com.example.moikiitos.post.service.impl;
 
+import com.example.moikiitos.mq.MqProducerService;
 import com.example.moikiitos.post.model.Post;
 import com.example.moikiitos.post.model.PostCreateDto;
 import com.example.moikiitos.post.repository.PostRepository;
@@ -19,12 +20,14 @@ class PostServiceImplTest {
 
     @Mock
     PostRepository postRepository;
+    @Mock
+    MqProducerService mqService;
 
     PostServiceImpl service;
 
     @BeforeEach
     void setUp() {
-        service = new PostServiceImpl(postRepository);
+        service = new PostServiceImpl(postRepository, mqService);
     }
 
     @Test
