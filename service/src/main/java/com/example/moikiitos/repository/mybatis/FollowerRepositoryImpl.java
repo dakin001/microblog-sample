@@ -2,6 +2,7 @@ package com.example.moikiitos.repository.mybatis;
 
 import com.example.moikiitos.repository.mybatis.mapper.FollowerMapper;
 import com.example.moikiitos.repository.mybatis.mapper.UserMapper;
+import com.example.moikiitos.shared.PageResult;
 import com.example.moikiitos.user.model.Follower;
 import com.example.moikiitos.user.model.User;
 import com.example.moikiitos.user.model.UserFollowQueryDto;
@@ -11,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -41,30 +41,36 @@ public class FollowerRepositoryImpl implements FollowerRepository {
     }
 
     @Override
-    public List<User> findFollowers(UserFollowQueryDto queryDto) {
+    public PageResult<User> findFollowers(UserFollowQueryDto queryDto) {
         var user = userMapper.findByName(queryDto.getName());
         if (user == null) {
-            return new ArrayList<>();
+            return new PageResult<>();
         }
 
         List<Long> ids = followerMapper.findFollowersByUserId(user.getId(), queryDto);
         if (ids.isEmpty()) {
-            return new ArrayList<>();
+            return new PageResult<>();
         }
-        return userMapper.findByIds(ids);
+        var result = new PageResult<>(userMapper.findByIds(ids));
+        // todo: query real total
+        result.setTotal(result.getItems().size());
+        return result;
     }
 
     @Override
-    public List<User> findFollowing(UserFollowQueryDto queryDto) {
+    public PageResult<User> findFollowing(UserFollowQueryDto queryDto) {
         var user = userMapper.findByName(queryDto.getName());
         if (user == null) {
-            return new ArrayList<>();
+            return new PageResult<>();
         }
 
         List<Long> ids = followerMapper.findFollowingByUserId(user.getId(), queryDto);
         if (ids.isEmpty()) {
-            return new ArrayList<>();
+            return new PageResult<>();
         }
-        return userMapper.findByIds(ids);
+        var result = new PageResult<>(userMapper.findByIds(ids));
+        // todo: query real total
+        result.setTotal(result.getItems().size());
+        return result;
     }
 }

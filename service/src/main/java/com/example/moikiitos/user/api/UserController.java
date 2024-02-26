@@ -1,5 +1,6 @@
 package com.example.moikiitos.user.api;
 
+import com.example.moikiitos.shared.PageResult;
 import com.example.moikiitos.shared.util.LoginContextUtils;
 import com.example.moikiitos.user.model.User;
 import com.example.moikiitos.user.model.UserFollowQueryDto;
@@ -14,8 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -64,7 +63,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful")})
     @GetMapping("{name}/followers")
-    public List<User> listFollowers(@PathVariable("name") @Size(max = 100) String name, UserFollowQueryDto queryDto) {
+    public PageResult<User> listFollowers(@PathVariable("name") @Size(max = 100) String name, UserFollowQueryDto queryDto) {
         queryDto.setName(name);
 
         return userQueryService.listFollowers(queryDto);
@@ -74,7 +73,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful")})
     @GetMapping("{name}/following")
-    public List<User> listFollowing(@PathVariable("name") @Size(max = 100) String name, UserFollowQueryDto queryDto) {
+    public PageResult<User> listFollowing(@PathVariable("name") @Size(max = 100) String name, UserFollowQueryDto queryDto) {
         queryDto.setName(name);
 
         return userQueryService.listFollowing(queryDto);

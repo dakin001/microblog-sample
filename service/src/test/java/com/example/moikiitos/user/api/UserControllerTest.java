@@ -1,5 +1,6 @@
 package com.example.moikiitos.user.api;
 
+import com.example.moikiitos.shared.PageResult;
 import com.example.moikiitos.shared.util.LoginContextUtils;
 import com.example.moikiitos.user.model.User;
 import com.example.moikiitos.user.model.UserFollowQueryDto;
@@ -104,11 +105,11 @@ class UserControllerTest {
         user.setEmail("name1@example.com");
         List<User> userList = List.of(user);
         var argCaptor = ArgumentCaptor.forClass(UserFollowQueryDto.class);
-        when(userQueryService.listFollowers(argCaptor.capture())).thenReturn(userList);
+        when(userQueryService.listFollowers(argCaptor.capture())).thenReturn(new PageResult<>(userList));
 
         this.mockMvc.perform(get("/users/user1/followers"))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().json("[{'name':'name1','email':'name1@example.com'}]"));
+                .andExpect(content().json("{'items':[{'name':'name1','email':'name1@example.com'}], 'total':1}"));
         UserFollowQueryDto queryDto = argCaptor.getValue();
         assertEquals("user1", queryDto.getName());
     }
@@ -117,11 +118,11 @@ class UserControllerTest {
     void listFollowing_noFollowing_returnEmpty() throws Exception {
         List<User> userList = List.of();
         var argCaptor = ArgumentCaptor.forClass(UserFollowQueryDto.class);
-        when(userQueryService.listFollowing(argCaptor.capture())).thenReturn(userList);
+        when(userQueryService.listFollowing(argCaptor.capture())).thenReturn(new PageResult<>(userList));
 
         this.mockMvc.perform(get("/users/user1/following"))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().json("[]"));
+                .andExpect(content().json("{'items':[],'total':0}"));
         UserFollowQueryDto queryDto = argCaptor.getValue();
         assertEquals("user1", queryDto.getName());
     }
