@@ -18,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -46,7 +47,7 @@ class FeedServiceImplTest {
         // CASE
         FeedQueryDto queryDto = new FeedQueryDto();
         queryDto.setUserId(1L);
-        when(feedCacheRepository.findByUserId(queryDto.getUserId(), queryDto)).thenReturn(null);
+        when(feedCacheRepository.findByUserId(queryDto.getUserId(), queryDto)).thenReturn(Optional.empty());
 
         // WHEN
         service.queryUserFeed(queryDto);
@@ -61,7 +62,7 @@ class FeedServiceImplTest {
         // CASE
         FeedQueryDto queryDto = new FeedQueryDto();
         queryDto.setUserId(1L);
-        when(feedCacheRepository.findByUserId(queryDto.getUserId(), queryDto)).thenReturn(List.of());
+        when(feedCacheRepository.findByUserId(queryDto.getUserId(), queryDto)).thenReturn(Optional.of(new ArrayList<>()));
 
         // WHEN
         service.queryUserFeed(queryDto);

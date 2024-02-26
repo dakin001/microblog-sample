@@ -26,16 +26,15 @@ public class FeedServiceImpl implements FeedService {
     @Override
 //    @Cacheable(value = FEED_CACHE_KEY_PREFIX, key = "#reqDto.userId", condition = "#reqDto.skip == 0")
     public List<Post> queryUserFeed(FeedQueryDto reqDto) {
-        List<Post> result = null;
         // in order to simplify the logic, only cache first page feed.
         if (reqDto.getSkip() == 0) {
-            result = feedCacheRepository.findByUserId(reqDto.getUserId(), reqDto);
+            var result = feedCacheRepository.findByUserId(reqDto.getUserId(), reqDto);
+            if (result.isPresent()) {
+                return result.get();
+            }
         }
 
-        if (result != null) {
-            return result;
-        }
-        result = repository.findFeedByUserId(reqDto.getUserId(), reqDto);
+        List<Post> result = repository.findFeedByUserId(reqDto.getUserId(), reqDto);
         feedCacheRepository.save(reqDto.getUserId(), result);
         return result;
     }
