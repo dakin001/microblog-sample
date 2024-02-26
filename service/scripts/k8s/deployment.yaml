@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moikiitos-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moikiitos-backend
+  template:
+    metadata:
+      labels:
+        app: moikiitos-backend
+        env: dev
+    spec:
+      containers:
+        - name: moikiitos-backend
+          image: moikiitos/service:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 60

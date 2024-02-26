@@ -1,0 +1,7 @@
+version: '3'
+services:
+  redis:
+    image: "redis"
+    container_name: redis63797
+    ports:
+      - "63797:6379"

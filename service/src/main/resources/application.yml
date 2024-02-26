@@ -22,5 +22,6 @@ springdoc.show-actuator: true
 permitAllUrls: /account/login,
   /account/registration,
   /error,
-  /api-docs, /api-docs/*, /swagger-ui, /swagger-ui/*
+  /api-docs, /api-docs/*, /swagger-ui, /swagger-ui/*,
+  /actuator/*
 
