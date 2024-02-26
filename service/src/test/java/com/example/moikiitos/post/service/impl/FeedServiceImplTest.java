@@ -33,11 +33,11 @@ class FeedServiceImplTest {
     void queryUserFeed() {
         // CASE
         FeedQueryDto queryDto = new FeedQueryDto();
-        queryDto.setName("user1");
+        queryDto.setUserId(1L);
         User user = new User();
-        user.setName("user1");
         user.setId(1L);
-        when(userQueryRepository.findByName("user1")).thenReturn(user);
+        user.setName("user1");
+        when(userQueryRepository.findById(1L)).thenReturn(user);
 
         // WHEN
         service.queryUserFeed(queryDto);

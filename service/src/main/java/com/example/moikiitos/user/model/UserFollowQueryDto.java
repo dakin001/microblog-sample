@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 @Getter
 public class UserFollowQueryDto extends PageQuery {
-    private String name;
+    private Long userId;
 }

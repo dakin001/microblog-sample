@@ -10,7 +10,6 @@ import com.example.moikiitos.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -28,11 +27,11 @@ public class UserController {
     @Operation(summary = "follow user", description = "follow user api", tags = {"user"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "successful")})
-    @PostMapping("{name}/follow")
-    public ResponseEntity<Void> follow(@PathVariable("name") @Size(max = 100) String name) {
+    @PostMapping("{userId}/follow")
+    public ResponseEntity<Void> follow(@PathVariable("userId") Long userId) {
         User user = LoginContextUtils.getCurrentUser();
         if (user != null) {
-            userService.follow(user, name);
+            userService.follow(user, userId);
         }
 
         return ResponseEntity.noContent().build();
@@ -41,11 +40,11 @@ public class UserController {
     @Operation(summary = "unfollow user", description = "unfollow user api", tags = {"user"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "successful")})
-    @PostMapping("{name}/unfollow")
-    public ResponseEntity<Void> unfollow(@PathVariable("name") @Size(max = 100) String name) {
+    @PostMapping("{userId}/unfollow")
+    public ResponseEntity<Void> unfollow(@PathVariable("userId") Long userId) {
         User user = LoginContextUtils.getCurrentUser();
         if (user != null) {
-            userService.unfollow(user, name);
+            userService.unfollow(user, userId);
         }
 
         return ResponseEntity.noContent().build();
@@ -62,9 +61,9 @@ public class UserController {
     @Operation(summary = "list Followers", tags = {"user"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful")})
-    @GetMapping("{name}/followers")
-    public PageResult<User> listFollowers(@PathVariable("name") @Size(max = 100) String name, UserFollowQueryDto queryDto) {
-        queryDto.setName(name);
+    @GetMapping("{userId}/followers")
+    public PageResult<User> listFollowers(@PathVariable("userId") Long userId, UserFollowQueryDto queryDto) {
+        queryDto.setUserId(userId);
 
         return userQueryService.listFollowers(queryDto);
     }
@@ -72,9 +71,9 @@ public class UserController {
     @Operation(summary = "list Following", tags = {"user"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful")})
-    @GetMapping("{name}/following")
-    public PageResult<User> listFollowing(@PathVariable("name") @Size(max = 100) String name, UserFollowQueryDto queryDto) {
-        queryDto.setName(name);
+    @GetMapping("{userId}/following")
+    public PageResult<User> listFollowing(@PathVariable("userId") Long userId, UserFollowQueryDto queryDto) {
+        queryDto.setUserId(userId);
 
         return userQueryService.listFollowing(queryDto);
     }

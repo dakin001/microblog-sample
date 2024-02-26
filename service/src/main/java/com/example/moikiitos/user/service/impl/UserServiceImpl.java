@@ -15,8 +15,8 @@ public class UserServiceImpl implements UserService {
     private final UserQueryRepository userQueryRepository;
 
     @Override
-    public void follow(User follower, String following) {
-        Follower entity = getFollower(follower, following);
+    public void follow(User follower, Long followingId) {
+        Follower entity = getFollower(follower, followingId);
         if (entity == null) {
             return;
         }
@@ -26,17 +26,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void unfollow(User follower, String following) {
-        Follower entity = getFollower(follower, following);
+    public void unfollow(User follower, Long followingId) {
+        Follower entity = getFollower(follower, followingId);
         if (entity != null) {
             followerRepository.remove(entity);
         }
     }
 
-    private Follower getFollower(User follower, String following) {
+    private Follower getFollower(User follower, Long followingId) {
         Follower entity = new Follower();
         entity.setFollower(follower);
-        entity.setFollowing(userQueryRepository.findByName(following));
+        entity.setFollowing(userQueryRepository.findById(followingId));
         if (entity.getFollower() == null || entity.getFollowing() == null) {
             return null;
         }

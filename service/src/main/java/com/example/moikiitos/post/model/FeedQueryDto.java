@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 @Getter
 public class FeedQueryDto extends PageQuery {
-    private String name;
+    private Long userId;
 }

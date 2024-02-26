@@ -33,13 +33,15 @@ class UserServiceImplTest {
     void follow_notExists_unfollowToFollow() {
         // CASE
         User user1 = new User();
+        user1.setId(1L);
         user1.setName("user1");
         User user2 = new User();
-        user1.setName("user2");
-        when(userQueryRepository.findByName("user2")).thenReturn(user2);
+        user2.setId(2L);
+        user2.setName("user2");
+        when(userQueryRepository.findById(2L)).thenReturn(user2);
 
         // WHEN
-        service.follow(user1, "user2");
+        service.follow(user1, 2L);
 
         // THEN
         verify(followerRepository, Mockito.times(1)).add(any(Follower.class));
@@ -52,11 +54,11 @@ class UserServiceImplTest {
         user1.setName("user1");
         User user2 = new User();
         user1.setName("user2");
-        when(userQueryRepository.findByName("user2")).thenReturn(user2);
+        when(userQueryRepository.findById(2L)).thenReturn(user2);
         when(followerRepository.isExists(any(Follower.class))).thenReturn(true);
 
         // WHEN
-        service.follow(user1, "user2");
+        service.follow(user1, 2L);
 
         // THEN
         verify(followerRepository, never()).add(any(Follower.class));
@@ -69,10 +71,10 @@ class UserServiceImplTest {
         user1.setName("user1");
         User user2 = new User();
         user1.setName("user2");
-        when(userQueryRepository.findByName("user2")).thenReturn(user2);
+        when(userQueryRepository.findById(2L)).thenReturn(user2);
 
         // WHEN
-        service.unfollow(user1, "user2");
+        service.unfollow(user1, 2L);
 
         // THEN
         verify(followerRepository, Mockito.times(1)).remove(any(Follower.class));

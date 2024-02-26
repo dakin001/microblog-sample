@@ -43,7 +43,7 @@ class FeedControllerTest {
 
         when(feedService.queryUserFeed(any(FeedQueryDto.class))).thenReturn(List.of(post));
 
-        this.mockMvc.perform(get("/feed/user1"))
+        this.mockMvc.perform(get("/feed/1"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("$[0].content").value(post.getContent()))
                 .andExpect(jsonPath("$[0].user.name").value(user.getName()));

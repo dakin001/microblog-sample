@@ -6,5 +6,5 @@ import com.example.moikiitos.user.model.UserQueryDto;
 public interface UserQueryRepository {
     User findByNameOrEmail(UserQueryDto queryDto);
 
-    User findByName(String name);
+    User findById(Long id);
 }

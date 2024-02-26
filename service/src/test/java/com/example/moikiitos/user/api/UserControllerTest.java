@@ -43,6 +43,7 @@ class UserControllerTest {
         this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         loginUser = new User();
+        loginUser.setId(1L);
         loginUser.setName("user1");
     }
 
@@ -52,7 +53,7 @@ class UserControllerTest {
                      mockStatic(LoginContextUtils.class)) {
             mockedStatic.when(LoginContextUtils::getCurrentUser).thenReturn(loginUser);
 
-            String user2 = "User2";
+            Long user2 = 2L;
 
             doNothing().when(userService).follow(loginUser, user2);
 
@@ -67,7 +68,7 @@ class UserControllerTest {
                      mockStatic(LoginContextUtils.class)) {
             mockedStatic.when(LoginContextUtils::getCurrentUser).thenReturn(loginUser);
 
-            String user2 = "User2";
+            Long user2 = 2L;
 
             doNothing().when(userService).unfollow(eq(loginUser), eq(user2));
 
@@ -101,17 +102,18 @@ class UserControllerTest {
     @Test
     void listFollowers_hasFollower_returnUsers() throws Exception {
         User user = new User();
+        user.setId(1L);
         user.setName("name1");
         user.setEmail("name1@example.com");
         List<User> userList = List.of(user);
         var argCaptor = ArgumentCaptor.forClass(UserFollowQueryDto.class);
         when(userQueryService.listFollowers(argCaptor.capture())).thenReturn(new PageResult<>(userList));
 
-        this.mockMvc.perform(get("/users/user1/followers"))
+        this.mockMvc.perform(get("/users/1/followers"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().json("{'items':[{'name':'name1','email':'name1@example.com'}], 'total':1}"));
         UserFollowQueryDto queryDto = argCaptor.getValue();
-        assertEquals("user1", queryDto.getName());
+        assertEquals(1L, queryDto.getUserId());
     }
 
     @Test
@@ -120,10 +122,10 @@ class UserControllerTest {
         var argCaptor = ArgumentCaptor.forClass(UserFollowQueryDto.class);
         when(userQueryService.listFollowing(argCaptor.capture())).thenReturn(new PageResult<>(userList));
 
-        this.mockMvc.perform(get("/users/user1/following"))
+        this.mockMvc.perform(get("/users/1/following"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().json("{'items':[],'total':0}"));
         UserFollowQueryDto queryDto = argCaptor.getValue();
-        assertEquals("user1", queryDto.getName());
+        assertEquals(1L, queryDto.getUserId());
     }
 }

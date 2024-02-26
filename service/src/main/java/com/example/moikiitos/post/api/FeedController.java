@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +37,7 @@ public class FeedController {
             return new ArrayList<>();
         }
 
-        reqDto.setName(user.getName());
+        reqDto.setUserId(user.getId());
         return feedService.queryUserFeed(reqDto);
     }
 
@@ -46,9 +45,9 @@ public class FeedController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "search results matching criteria")
     })
-    @GetMapping("/{name}")
-    public List<Post> queryUserFeed(@PathVariable("name") @Size(max = 100) String name, @Valid FeedQueryDto reqDto) {
-        reqDto.setName(name);
+    @GetMapping("/{userId}")
+    public List<Post> queryUserFeed(@PathVariable("userId") Long userId, @Valid FeedQueryDto reqDto) {
+        reqDto.setUserId(userId);
         return feedService.queryUserFeed(reqDto);
     }
 }

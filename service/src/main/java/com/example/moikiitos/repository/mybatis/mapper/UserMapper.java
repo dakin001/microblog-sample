@@ -11,6 +11,9 @@ import java.util.List;
 public interface UserMapper {
 
     // replace "*" to columns
+    @Select("SELECT * FROM `user` WHERE id = #{id}")
+    User findById(@Param("id") Long id);
+
     @Select("SELECT * FROM `user` WHERE name = #{name}")
     User findByName(@Param("name") String name);
 

@@ -42,12 +42,7 @@ public class FollowerRepositoryImpl implements FollowerRepository {
 
     @Override
     public PageResult<User> findFollowers(UserFollowQueryDto queryDto) {
-        var user = userMapper.findByName(queryDto.getName());
-        if (user == null) {
-            return new PageResult<>();
-        }
-
-        List<Long> ids = followerMapper.findFollowersByUserId(user.getId(), queryDto);
+        List<Long> ids = followerMapper.findFollowersByUserId(queryDto.getUserId(), queryDto);
         if (ids.isEmpty()) {
             return new PageResult<>();
         }
@@ -59,12 +54,7 @@ public class FollowerRepositoryImpl implements FollowerRepository {
 
     @Override
     public PageResult<User> findFollowing(UserFollowQueryDto queryDto) {
-        var user = userMapper.findByName(queryDto.getName());
-        if (user == null) {
-            return new PageResult<>();
-        }
-
-        List<Long> ids = followerMapper.findFollowingByUserId(user.getId(), queryDto);
+        List<Long> ids = followerMapper.findFollowingByUserId(queryDto.getUserId(), queryDto);
         if (ids.isEmpty()) {
             return new PageResult<>();
         }

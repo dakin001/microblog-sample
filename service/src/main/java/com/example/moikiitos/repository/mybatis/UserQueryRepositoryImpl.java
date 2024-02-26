@@ -22,7 +22,7 @@ public class UserQueryRepositoryImpl implements UserQueryRepository {
     }
 
     @Override
-    public User findByName(String name) {
-        return userMapper.findByName(name);
+    public User findById(Long id) {
+        return userMapper.findById(id);
     }
 }
