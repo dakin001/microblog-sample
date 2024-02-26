@@ -55,7 +55,7 @@ public class FeedCacheRepositoryImpl implements FeedCacheRepository {
     @Override
     public Optional<List<Post>> findByUserId(Long userId, PageQuery page) {
         var rangeData = redisTemplate.opsForZSet()
-                .reverseRange(getKey(userId), page.getSkip() + 1, page.getSkip() + page.getLimit());
+                .reverseRange(getKey(userId), page.getSkip(), page.getSkip() + page.getLimit() - 1);
 
         List<Post> result = new ArrayList<>();
         if (rangeData != null) {

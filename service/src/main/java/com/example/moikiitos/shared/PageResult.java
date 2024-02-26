@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 public class PageResult<T> {
     private List<T> items = new ArrayList<>();
-    private Integer total;
+    private Integer total = 0;
 
     public PageResult() {
     }

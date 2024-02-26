@@ -1,5 +1,6 @@
 package com.example.moikiitos.post.service.impl;
 
+import com.example.moikiitos.mq.MqProducerService;
 import com.example.moikiitos.post.model.Post;
 import com.example.moikiitos.post.model.PostCreateDto;
 import com.example.moikiitos.post.repository.PostRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
     private final PostRepository repository;
+    private final MqProducerService mqService;
 
     @Override
     public Post createPost(User user, PostCreateDto reqDto) {
@@ -25,6 +27,6 @@ public class PostServiceImpl implements PostService {
     }
 
     private void postCreated(Post post) {
-
+        mqService.sendPostCreatedMsg(post);
     }
 }

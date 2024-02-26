@@ -12,6 +12,7 @@ public interface PostMapper {
             INSERT INTO `post` (user_id, content)
             values (#{user.id}, #{content})
             """)
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     void insert(Post post);
 
     @Select("""

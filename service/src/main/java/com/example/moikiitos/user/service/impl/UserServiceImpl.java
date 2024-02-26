@@ -1,5 +1,6 @@
 package com.example.moikiitos.user.service.impl;
 
+import com.example.moikiitos.mq.MqProducerService;
 import com.example.moikiitos.user.model.Follower;
 import com.example.moikiitos.user.model.User;
 import com.example.moikiitos.user.repository.FollowerRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     private final FollowerRepository followerRepository;
     private final UserQueryRepository userQueryRepository;
+    private final MqProducerService mqService;
 
     @Override
     public void follow(User follower, Long followingId) {
@@ -22,6 +24,7 @@ public class UserServiceImpl implements UserService {
         }
         if (!followerRepository.isExists(entity)) {
             followerRepository.add(entity);
+            mqService.sendFollowMsg(entity);
         }
     }
 
@@ -30,6 +33,7 @@ public class UserServiceImpl implements UserService {
         Follower entity = getFollower(follower, followingId);
         if (entity != null) {
             followerRepository.remove(entity);
+            mqService.sendUnFollowMsg(entity);
         }
     }
 

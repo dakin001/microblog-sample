@@ -9,4 +9,6 @@ public interface FeedService {
     List<Post> queryUserFeed(FeedQueryDto reqDto);
 
     void addPostIntoFeed(Post post);
+
+    void reGenerateFeed(Long userId);
 }
