@@ -14,11 +14,19 @@ public class WebSecurityConfiguration {
     @Value("${permitAllUrls:}")
     private String[] permitAllUrls;
 
+    @Value("${securityDisEnable:false}")
+    private Boolean securityDisEnable;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, SessionAuthenticationFilter filter) throws Exception {
-        http.authorizeHttpRequests((requests) -> requests
-                        .requestMatchers(permitAllUrls).permitAll()
-                        .anyRequest().authenticated()
+        http.authorizeHttpRequests(requests -> {
+                            if (securityDisEnable) {
+                                requests.anyRequest().permitAll();
+                                return;
+                            }
+                            requests.requestMatchers(permitAllUrls).permitAll()
+                                    .anyRequest().authenticated();
+                        }
                 ).addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .csrf(x -> x.disable());
 
