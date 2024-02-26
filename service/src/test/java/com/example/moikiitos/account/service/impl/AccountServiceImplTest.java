@@ -1,10 +1,11 @@
 package com.example.moikiitos.account.service.impl;
 
-import com.example.moikiitos.account.model.Account;
-import com.example.moikiitos.account.model.AccountExistsException;
-import com.example.moikiitos.account.model.AccountLoginDto;
-import com.example.moikiitos.account.model.AccountRegistrationDto;
-import com.example.moikiitos.account.repository.AccountRepository;
+import com.example.moikiitos.domain.account.model.Account;
+import com.example.moikiitos.domain.account.model.AccountExistsException;
+import com.example.moikiitos.domain.account.model.AccountLoginDto;
+import com.example.moikiitos.domain.account.model.AccountRegistrationDto;
+import com.example.moikiitos.domain.account.repository.AccountRepository;
+import com.example.moikiitos.domain.account.service.impl.AccountServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

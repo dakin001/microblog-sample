@@ -1,9 +1,10 @@
 package com.example.moikiitos.post.api;
 
-import com.example.moikiitos.post.model.FeedQueryDto;
-import com.example.moikiitos.post.model.Post;
-import com.example.moikiitos.post.service.FeedService;
-import com.example.moikiitos.user.model.User;
+import com.example.moikiitos.domain.post.api.FeedController;
+import com.example.moikiitos.domain.post.model.FeedQueryDto;
+import com.example.moikiitos.domain.post.model.Post;
+import com.example.moikiitos.domain.post.service.FeedService;
+import com.example.moikiitos.domain.user.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

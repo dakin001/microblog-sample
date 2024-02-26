@@ -1,14 +1,15 @@
 package com.example.moikiitos.post.service.impl;
 
-import com.example.moikiitos.post.model.FeedQueryDto;
-import com.example.moikiitos.post.model.Post;
-import com.example.moikiitos.post.repository.FeedCacheRepository;
-import com.example.moikiitos.post.repository.PostRepository;
-import com.example.moikiitos.shared.AppConfig;
-import com.example.moikiitos.shared.PageResult;
-import com.example.moikiitos.user.model.User;
-import com.example.moikiitos.user.model.UserFollowQueryDto;
-import com.example.moikiitos.user.service.UserQueryService;
+import com.example.moikiitos.domain.post.model.FeedQueryDto;
+import com.example.moikiitos.domain.post.model.Post;
+import com.example.moikiitos.domain.post.repository.FeedCacheRepository;
+import com.example.moikiitos.domain.post.repository.PostRepository;
+import com.example.moikiitos.domain.post.service.impl.FeedServiceImpl;
+import com.example.moikiitos.domain.shared.AppConfig;
+import com.example.moikiitos.domain.shared.PageResult;
+import com.example.moikiitos.domain.user.model.User;
+import com.example.moikiitos.domain.user.model.UserFollowQueryDto;
+import com.example.moikiitos.domain.user.service.UserQueryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

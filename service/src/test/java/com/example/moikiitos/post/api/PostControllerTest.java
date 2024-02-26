@@ -1,8 +1,9 @@
 package com.example.moikiitos.post.api;
 
-import com.example.moikiitos.post.model.PostCreateDto;
-import com.example.moikiitos.post.service.PostService;
-import com.example.moikiitos.user.model.User;
+import com.example.moikiitos.domain.post.api.PostController;
+import com.example.moikiitos.domain.post.model.PostCreateDto;
+import com.example.moikiitos.domain.post.service.PostService;
+import com.example.moikiitos.domain.user.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

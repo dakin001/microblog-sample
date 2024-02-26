@@ -1,12 +1,13 @@
 package com.example.moikiitos.user.api;
 
-import com.example.moikiitos.shared.PageResult;
-import com.example.moikiitos.shared.util.LoginContextUtils;
-import com.example.moikiitos.user.model.User;
-import com.example.moikiitos.user.model.UserFollowQueryDto;
-import com.example.moikiitos.user.model.UserQueryDto;
-import com.example.moikiitos.user.service.UserQueryService;
-import com.example.moikiitos.user.service.UserService;
+import com.example.moikiitos.domain.user.api.UserController;
+import com.example.moikiitos.domain.shared.PageResult;
+import com.example.moikiitos.domain.shared.util.LoginContextUtils;
+import com.example.moikiitos.domain.user.model.User;
+import com.example.moikiitos.domain.user.model.UserFollowQueryDto;
+import com.example.moikiitos.domain.user.model.UserQueryDto;
+import com.example.moikiitos.domain.user.service.UserQueryService;
+import com.example.moikiitos.domain.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
