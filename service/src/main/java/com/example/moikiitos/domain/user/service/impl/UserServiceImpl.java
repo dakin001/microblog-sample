@@ -1,11 +1,11 @@
 package com.example.moikiitos.domain.user.service.impl;
 
+import com.example.moikiitos.domain.shared.mq.MqProducerService;
+import com.example.moikiitos.domain.user.model.Follower;
 import com.example.moikiitos.domain.user.model.User;
 import com.example.moikiitos.domain.user.repository.FollowerRepository;
 import com.example.moikiitos.domain.user.repository.UserQueryRepository;
 import com.example.moikiitos.domain.user.service.UserService;
-import com.example.moikiitos.domain.shared.mq.MqProducerService;
-import com.example.moikiitos.domain.user.model.Follower;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

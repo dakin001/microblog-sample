@@ -1,15 +1,14 @@
 package com.example.moikiitos.infrastructure.mq.local;
 
 import com.example.moikiitos.domain.shared.mq.MqConsumeService;
-import com.example.moikiitos.infrastructure.mq.local.event.UnFollowEvent;
 import com.example.moikiitos.infrastructure.mq.local.event.FollowEvent;
 import com.example.moikiitos.infrastructure.mq.local.event.PostCreatedEvent;
+import com.example.moikiitos.infrastructure.mq.local.event.UnFollowEvent;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-@Profile("local")
+//@Profile("local")
 @Component
 @RequiredArgsConstructor
 public class LocalEventListener {

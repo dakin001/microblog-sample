@@ -1,9 +1,9 @@
 package com.example.moikiitos.infrastructure.repository.mybatis;
 
-import com.example.moikiitos.infrastructure.repository.mybatis.mapper.UserMapper;
 import com.example.moikiitos.domain.user.model.User;
 import com.example.moikiitos.domain.user.model.UserQueryDto;
 import com.example.moikiitos.domain.user.repository.UserQueryRepository;
+import com.example.moikiitos.infrastructure.repository.mybatis.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

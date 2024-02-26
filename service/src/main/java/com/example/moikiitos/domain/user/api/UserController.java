@@ -1,12 +1,12 @@
 package com.example.moikiitos.domain.user.api;
 
-import com.example.moikiitos.domain.user.model.User;
-import com.example.moikiitos.domain.user.service.UserService;
 import com.example.moikiitos.domain.shared.PageResult;
 import com.example.moikiitos.domain.shared.util.LoginContextUtils;
+import com.example.moikiitos.domain.user.model.User;
 import com.example.moikiitos.domain.user.model.UserFollowQueryDto;
 import com.example.moikiitos.domain.user.model.UserQueryDto;
 import com.example.moikiitos.domain.user.service.UserQueryService;
+import com.example.moikiitos.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

@@ -1,17 +1,16 @@
 package com.example.moikiitos.infrastructure.mq.local;
 
+import com.example.moikiitos.domain.post.model.Post;
 import com.example.moikiitos.domain.shared.mq.MqProducerService;
+import com.example.moikiitos.domain.user.model.Follower;
 import com.example.moikiitos.infrastructure.mq.local.event.FollowEvent;
 import com.example.moikiitos.infrastructure.mq.local.event.PostCreatedEvent;
 import com.example.moikiitos.infrastructure.mq.local.event.UnFollowEvent;
-import com.example.moikiitos.domain.post.model.Post;
-import com.example.moikiitos.domain.user.model.Follower;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-@Profile("local")
+//@Profile("local")
 @Service
 @RequiredArgsConstructor
 public class MqProducerServiceImpl implements MqProducerService {

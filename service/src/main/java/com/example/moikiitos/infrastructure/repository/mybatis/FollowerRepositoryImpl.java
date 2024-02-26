@@ -1,12 +1,12 @@
 package com.example.moikiitos.infrastructure.repository.mybatis;
 
-import com.example.moikiitos.infrastructure.repository.mybatis.mapper.FollowerMapper;
-import com.example.moikiitos.infrastructure.repository.mybatis.mapper.UserMapper;
 import com.example.moikiitos.domain.shared.PageResult;
 import com.example.moikiitos.domain.user.model.Follower;
 import com.example.moikiitos.domain.user.model.User;
 import com.example.moikiitos.domain.user.model.UserFollowQueryDto;
 import com.example.moikiitos.domain.user.repository.FollowerRepository;
+import com.example.moikiitos.infrastructure.repository.mybatis.mapper.FollowerMapper;
+import com.example.moikiitos.infrastructure.repository.mybatis.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;

@@ -1,11 +1,11 @@
 package com.example.moikiitos.user.service.impl;
 
-import com.example.moikiitos.domain.user.service.impl.UserServiceImpl;
 import com.example.moikiitos.domain.shared.mq.MqProducerService;
 import com.example.moikiitos.domain.user.model.Follower;
 import com.example.moikiitos.domain.user.model.User;
 import com.example.moikiitos.domain.user.repository.FollowerRepository;
 import com.example.moikiitos.domain.user.repository.UserQueryRepository;
+import com.example.moikiitos.domain.user.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

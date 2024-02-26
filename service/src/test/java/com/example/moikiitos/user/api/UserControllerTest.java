@@ -1,8 +1,8 @@
 package com.example.moikiitos.user.api;
 
-import com.example.moikiitos.domain.user.api.UserController;
 import com.example.moikiitos.domain.shared.PageResult;
 import com.example.moikiitos.domain.shared.util.LoginContextUtils;
+import com.example.moikiitos.domain.user.api.UserController;
 import com.example.moikiitos.domain.user.model.User;
 import com.example.moikiitos.domain.user.model.UserFollowQueryDto;
 import com.example.moikiitos.domain.user.model.UserQueryDto;

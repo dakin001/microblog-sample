@@ -2,10 +2,10 @@ package com.example.moikiitos.infrastructure.repository.mybatis;
 
 import com.example.moikiitos.domain.post.model.Post;
 import com.example.moikiitos.domain.post.repository.PostRepository;
-import com.example.moikiitos.infrastructure.repository.mybatis.mapper.PostMapper;
-import com.example.moikiitos.infrastructure.repository.mybatis.mapper.UserMapper;
 import com.example.moikiitos.domain.shared.PageQuery;
 import com.example.moikiitos.domain.user.model.User;
+import com.example.moikiitos.infrastructure.repository.mybatis.mapper.PostMapper;
+import com.example.moikiitos.infrastructure.repository.mybatis.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

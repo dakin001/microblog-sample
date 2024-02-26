@@ -1,7 +1,7 @@
 package com.example.moikiitos.infrastructure.mq.kafka;
 
-import com.example.moikiitos.domain.shared.mq.MqProducerService;
 import com.example.moikiitos.domain.post.model.Post;
+import com.example.moikiitos.domain.shared.mq.MqProducerService;
 import com.example.moikiitos.domain.user.model.Follower;
 
 public class KafkaProducerServiceImpl implements MqProducerService {

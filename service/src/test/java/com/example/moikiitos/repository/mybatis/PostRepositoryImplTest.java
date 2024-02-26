@@ -2,14 +2,14 @@ package com.example.moikiitos.repository.mybatis;
 
 import com.example.moikiitos.domain.account.model.Account;
 import com.example.moikiitos.domain.post.model.Post;
+import com.example.moikiitos.domain.shared.PageQuery;
+import com.example.moikiitos.domain.user.model.Follower;
+import com.example.moikiitos.domain.user.model.User;
 import com.example.moikiitos.infrastructure.repository.mybatis.PostRepositoryImpl;
 import com.example.moikiitos.infrastructure.repository.mybatis.mapper.AccountMapper;
 import com.example.moikiitos.infrastructure.repository.mybatis.mapper.FollowerMapper;
 import com.example.moikiitos.infrastructure.repository.mybatis.mapper.PostMapper;
 import com.example.moikiitos.infrastructure.repository.mybatis.mapper.UserMapper;
-import com.example.moikiitos.domain.shared.PageQuery;
-import com.example.moikiitos.domain.user.model.Follower;
-import com.example.moikiitos.domain.user.model.User;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

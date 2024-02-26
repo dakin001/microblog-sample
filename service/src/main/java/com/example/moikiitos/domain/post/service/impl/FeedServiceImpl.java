@@ -2,9 +2,9 @@ package com.example.moikiitos.domain.post.service.impl;
 
 import com.example.moikiitos.domain.post.model.FeedQueryDto;
 import com.example.moikiitos.domain.post.model.Post;
+import com.example.moikiitos.domain.post.repository.FeedCacheRepository;
 import com.example.moikiitos.domain.post.repository.PostRepository;
 import com.example.moikiitos.domain.post.service.FeedService;
-import com.example.moikiitos.domain.post.repository.FeedCacheRepository;
 import com.example.moikiitos.domain.shared.AppConfig;
 import com.example.moikiitos.domain.shared.PageQuery;
 import com.example.moikiitos.domain.shared.PageResult;
