@@ -1,7 +1,23 @@
-spring.application.name: MoiKiitos
+server.port: 8080
 
-spring.flyway:
-  enabled: true
+spring:
+  application.name: MoiKiitos
+  #  profiles.active: local
+
+  flyway:
+    enabled: true
+  cache:
+    type: redis
+    redis:
+      time-to-live: 60000 # 1 min
+      cache-null-values: true
+  # redis
+  data:
+    redis:
+      host: localhost
+      port: 63797
+      # password:
+      database: 0
 
 logging:
   level:
@@ -24,4 +40,3 @@ permitAllUrls: /account/login,
   /error,
   /api-docs, /api-docs/*, /swagger-ui, /swagger-ui/*,
   /actuator/*
-

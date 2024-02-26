@@ -26,6 +26,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2")
 	implementation 'com.h2database:h2'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	// for db migrations
 	implementation 'org.flywaydb:flyway-core'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
