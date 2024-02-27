@@ -51,7 +51,7 @@ class AccountControllerTest {
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
                             .content(json))
-                    .andExpect(status().isNoContent());
+                    .andExpect(status().is2xxSuccessful());
             mockedStatic.verify(
                     () -> LoginContextUtils.setLoginUser(eq(loginUser)),
                     times(1)

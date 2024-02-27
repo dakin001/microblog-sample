@@ -45,7 +45,7 @@ public class AccountController {
         httpSession.setAttribute(SESSION_USER, loginUser);
         LoginContextUtils.setLoginUser(loginUser);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(loginUser);
     }
 
     @Operation(summary = "register a new user", description = "register a new user", tags = {"account"})

@@ -28,7 +28,7 @@ public class WebSecurityConfiguration {
                                     .anyRequest().authenticated();
                         }
                 ).addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
-                .csrf(x -> x.disable());
+                .csrf(x -> x.disable()).cors();
 
         return http.build();
     }
