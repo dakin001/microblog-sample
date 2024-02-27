@@ -171,7 +171,7 @@ export class PostApi {
         
       };
 
-      let authNames = ['bearerAuth'];
+      let authNames = [];
       let contentTypes = [];
       let accepts = ['*/*'];
       let returnType = [Post];

@@ -13,7 +13,8 @@
  *
  */
 import superagent from "superagent";
-import querystring from "querystring";
+// import querystring from "querystring";
+import { toast } from 'react-toastify';
 
 /**
 * @module ApiClient
@@ -34,7 +35,7 @@ export class ApiClient {
          * @type {String}
          * @default /
          */
-        this.basePath = '/'.replace(/\/+$/, '');
+        this.basePath = 'http://localhost:8080/'.replace(/\/+$/, '');
 
         /**
          * The authentication methods to be included for all API calls.
@@ -419,7 +420,7 @@ export class ApiClient {
         }
 
         if (contentType === 'application/x-www-form-urlencoded') {
-            request.send(querystring.stringify(this.normalizeParams(formParams)));
+            // request.send(querystring.stringify(this.normalizeParams(formParams)));
         } else if (contentType == 'multipart/form-data') {
             var _formParams = this.normalizeParams(formParams);
             for (var key in _formParams) {
@@ -457,9 +458,13 @@ export class ApiClient {
             }
         }
 
-        
-
         request.end((error, response) => {
+            if(error){
+                let data = this.deserialize(response, returnType);
+                toast.info('An error occurred. '+ data);
+                console.log(data);
+            }
+
             if (callback) {
                 var data = null;
                 if (!error) {
@@ -472,6 +477,7 @@ export class ApiClient {
                         error = err;
                     }
                 }
+              
 
                 callback(error, data, response);
             }

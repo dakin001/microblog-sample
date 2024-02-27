@@ -118,7 +118,7 @@ export class UserApi {
         
       };
 
-      let authNames = ['bearerAuth'];
+      let authNames = [];
       let contentTypes = [];
       let accepts = [];
       let returnType = null;

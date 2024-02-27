@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { AccountApi } from "../apis/index";
+import { AccountRegistrationDto } from '../apis/model/AccountRegistrationDto';
 
 function Registration() {
   const [formData, setFormData] = useState({
@@ -20,11 +22,15 @@ function Registration() {
     });
   };
 
+  const accountApi = new AccountApi();
+
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent default form submission
 
-    // TODO: Implement form validation and submission logic (e.g., send data to server)
     console.log('Form submitted:', formData);
+    accountApi.register(formData, (a) => {
+      console.log(a);
+    })
   };
 
   return (
@@ -33,7 +39,7 @@ function Registration() {
         <div className="col-md-6">
           <h2 className='text-center'> Welcome </h2>
           <form onSubmit={handleSubmit}>
-          <div className="mb-3">
+            <div className="mb-3">
               <input
                 type="text"
                 className="form-control"
