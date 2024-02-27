@@ -7,6 +7,7 @@ import com.example.moikiitos.domain.post.repository.PostRepository;
 import com.example.moikiitos.domain.post.service.impl.FeedServiceImpl;
 import com.example.moikiitos.domain.shared.AppConfig;
 import com.example.moikiitos.domain.shared.PageResult;
+import com.example.moikiitos.domain.shared.mq.MqProducerService;
 import com.example.moikiitos.domain.user.model.User;
 import com.example.moikiitos.domain.user.model.UserFollowQueryDto;
 import com.example.moikiitos.domain.user.service.UserQueryService;
@@ -33,6 +34,8 @@ class FeedServiceImplTest {
     FeedCacheRepository feedCacheRepository;
     @Mock
     UserQueryService userQueryService;
+    @Mock
+    MqProducerService mqProducerService;
 
     FeedServiceImpl service;
 
@@ -40,7 +43,7 @@ class FeedServiceImplTest {
     void setUp() {
         AppConfig appConfig = new AppConfig();
         appConfig.setBigVerifiedAccountFollowerSize(10);
-        service = new FeedServiceImpl(postRepository, feedCacheRepository, userQueryService, appConfig);
+        service = new FeedServiceImpl(postRepository, feedCacheRepository, userQueryService, appConfig, mqProducerService);
     }
 
     @Test

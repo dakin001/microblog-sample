@@ -10,4 +10,6 @@ public interface MqConsumeService {
     void receiveFollowMsg(Follower obj);
 
     void receiveUnFollowMsg(Follower obj);
+
+    void receiveFeedUpdatedMsg(Long userId, Post obj);
 }

@@ -20,4 +20,9 @@ public class KafkaProducerServiceImpl implements MqProducerService {
     public void sendUnFollowMsg(Follower obj) {
 
     }
+
+    @Override
+    public void sendFeedUpdatedMsg(Long userId, Post obj) {
+
+    }
 }

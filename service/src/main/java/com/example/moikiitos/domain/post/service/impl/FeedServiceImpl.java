@@ -8,6 +8,7 @@ import com.example.moikiitos.domain.post.service.FeedService;
 import com.example.moikiitos.domain.shared.AppConfig;
 import com.example.moikiitos.domain.shared.PageQuery;
 import com.example.moikiitos.domain.shared.PageResult;
+import com.example.moikiitos.domain.shared.mq.MqProducerService;
 import com.example.moikiitos.domain.user.model.User;
 import com.example.moikiitos.domain.user.model.UserFollowQueryDto;
 import com.example.moikiitos.domain.user.service.UserQueryService;
@@ -23,6 +24,7 @@ public class FeedServiceImpl implements FeedService {
     private final FeedCacheRepository feedCacheRepository;
     private final UserQueryService userQueryService;
     private final AppConfig appConfig;
+    private final MqProducerService mqProducerService;
 
     @Override
 //    @Cacheable(value = FEED_CACHE_KEY_PREFIX, key = "#reqDto.userId", condition = "#reqDto.skip == 0")
@@ -42,7 +44,7 @@ public class FeedServiceImpl implements FeedService {
 
     @Override
     public void addPostIntoFeed(Post post) {
-        feedCacheRepository.addItemIfCacheExists(post.getUser().getId(), post);
+        addOneIntoFeed(post.getUser().getId(), post);
 
         addIntoFollower(post);
     }
@@ -53,6 +55,12 @@ public class FeedServiceImpl implements FeedService {
         feedCacheRepository.save(userId, result);
     }
 
+    private void addOneIntoFeed(Long userId, Post post) {
+        feedCacheRepository.addItemIfCacheExists(userId, post);
+
+        mqProducerService.sendFeedUpdatedMsg(userId, post);
+    }
+
     private void addIntoFollower(Post post) {
         UserFollowQueryDto followQueryDto = new UserFollowQueryDto();
         followQueryDto.setLimit(appConfig.getBigVerifiedAccountFollowerSize());
@@ -61,7 +69,7 @@ public class FeedServiceImpl implements FeedService {
         var followers = userQueryService.listFollowers(followQueryDto);
         // we do not update big V timely. we can use scheduler job for big V's posts,
         if (isNotBigVerifiedAccount(followers)) {
-            followers.getItems().forEach(follower -> feedCacheRepository.addItemIfCacheExists(follower.getId(), post));
+            followers.getItems().forEach(follower -> addOneIntoFeed(follower.getId(), post));
         }
     }
 

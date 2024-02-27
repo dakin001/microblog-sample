@@ -3,6 +3,7 @@ package com.example.moikiitos.infrastructure.mq.local;
 import com.example.moikiitos.domain.post.model.Post;
 import com.example.moikiitos.domain.shared.mq.MqProducerService;
 import com.example.moikiitos.domain.user.model.Follower;
+import com.example.moikiitos.infrastructure.mq.local.event.FeedUpdatedEvent;
 import com.example.moikiitos.infrastructure.mq.local.event.FollowEvent;
 import com.example.moikiitos.infrastructure.mq.local.event.PostCreatedEvent;
 import com.example.moikiitos.infrastructure.mq.local.event.UnFollowEvent;
@@ -29,5 +30,10 @@ public class MqProducerServiceImpl implements MqProducerService {
     @Override
     public void sendUnFollowMsg(Follower obj) {
         applicationEventPublisher.publishEvent(new UnFollowEvent(this, obj));
+    }
+
+    @Override
+    public void sendFeedUpdatedMsg(Long userId, Post obj) {
+        applicationEventPublisher.publishEvent(new FeedUpdatedEvent(this, obj, userId));
     }
 }

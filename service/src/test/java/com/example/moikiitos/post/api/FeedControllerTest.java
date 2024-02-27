@@ -4,6 +4,7 @@ import com.example.moikiitos.domain.post.api.FeedController;
 import com.example.moikiitos.domain.post.model.FeedQueryDto;
 import com.example.moikiitos.domain.post.model.Post;
 import com.example.moikiitos.domain.post.service.FeedService;
+import com.example.moikiitos.domain.post.service.UserFeedNotifyService;
 import com.example.moikiitos.domain.user.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,11 +26,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class FeedControllerTest {
     @Mock
     FeedService feedService;
+    @Mock
+    UserFeedNotifyService userFeedNotifyService;
     MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        FeedController controller = new FeedController(feedService);
+        FeedController controller = new FeedController(feedService, userFeedNotifyService);
         this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 

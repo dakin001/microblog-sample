@@ -10,4 +10,6 @@ public interface MqProducerService {
     void sendFollowMsg(Follower obj);
 
     void sendUnFollowMsg(Follower obj);
+
+    void sendFeedUpdatedMsg(Long userId, Post obj);
 }
