@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { AccountApi } from "../apis/index";
+import { toast } from 'react-toastify';
 
 function Login() {
   const [formData, setFormData] = useState({
     nameOrEmail: 'user11',
-    password: '123',
+    password: '123456',
   });
 
   const handleChange = (event) => {
     setFormData(values => ({
       ...values,
-       [event.target.name]: event.target.value
+      [event.target.name]: event.target.value
     }))
   }
 
@@ -19,10 +20,11 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent default form submission
 
-    accountApi.login(formData,(error, data, response)=>{
-  
-window.location = "/posts";
- 
+    accountApi.login(formData, (error, data, response) => {
+      if(!error)
+          toast.info('login sucessful.');
+        console.log(response);
+        
     })
   };
 
@@ -37,27 +39,27 @@ window.location = "/posts";
                 type="text"
                 className="form-control"
                 id="name"
-                name="nameOrEmail" 
+                name="nameOrEmail"
                 placeholder="Name/Email"
                 value={formData.nameOrEmail}
                 onChange={handleChange}
                 required
               />
             </div>
-           
+
             <div className="mb-3">
               <input
                 type="password"
                 className="form-control"
                 id="password"
-                name="password" 
+                name="password"
                 placeholder='Password'
                 value={formData.password}
                 onChange={handleChange}
                 required
               />
             </div>
-             
+
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>
         </div>

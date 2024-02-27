@@ -71,20 +71,20 @@ export class ApiClient {
          * response, and return them in the next request.
          * @default false
          */
-        this.enableCookies = false;
+        this.enableCookies = true;
 
         /*
          * Used to save and return cookies in a node.js (non-browser) setting,
          * if this.enableCookies is set to true.
          */
         if (typeof window === 'undefined') {
-          this.agent = new superagent.agent();
+            this.agent = new superagent.agent();
         }
 
         /*
          * Allow user to override superagent agent
          */
-         this.requestAgent = null;
+        this.requestAgent = null;
 
     }
 
@@ -172,7 +172,7 @@ export class ApiClient {
             let fs;
             try {
                 fs = require('fs');
-            } catch (err) {}
+            } catch (err) { }
             if (fs && fs.ReadStream && param instanceof fs.ReadStream) {
                 return true;
             }
@@ -381,7 +381,7 @@ export class ApiClient {
     * @param {module:ApiClient~callApiCallback} callback The callback function.
     * @returns {Object} The SuperAgent request object.
     */
-    callApi(path, httpMethod, pathParams,
+     callApi(path, httpMethod, pathParams,
         queryParams, headerParams, formParams, bodyParam, authNames, contentTypes, accepts,
         returnType, callback) {
 
@@ -403,7 +403,7 @@ export class ApiClient {
 
         // set requestAgent if it is set by user
         if (this.requestAgent) {
-          request.agent(this.requestAgent);
+            request.agent(this.requestAgent);
         }
 
         // set request timeout
@@ -412,7 +412,7 @@ export class ApiClient {
         var contentType = this.jsonPreferredMime(contentTypes);
         if (contentType) {
             // Issue with superagent and multipart/form-data (https://github.com/visionmedia/superagent/issues/746)
-            if(contentType != 'multipart/form-data') {
+            if (contentType != 'multipart/form-data') {
                 request.type(contentType);
             }
         } else if (!request.header['Content-Type']) {
@@ -443,13 +443,13 @@ export class ApiClient {
         }
 
         if (returnType === 'Blob') {
-          request.responseType('blob');
+            request.responseType('blob');
         } else if (returnType === 'String') {
-          request.responseType('string');
+            request.responseType('string');
         }
 
         // Attach previously saved cookies, if enabled
-        if (this.enableCookies){
+        if (this.enableCookies) {
             if (typeof window === 'undefined') {
                 this.agent.attachCookies(request);
             }
@@ -477,7 +477,7 @@ export class ApiClient {
                         error = err;
                     }
                 }
-              
+
 
                 callback(error, data, response);
             }

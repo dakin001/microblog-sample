@@ -5,6 +5,8 @@ import Registration from '../pages/Registration'; // Replace with your component
 import Layout from "./Layout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import UserPage from "../pages/User";
+import PostPage from "../pages/PostPage";
  
 const AppNavigator = () => {
   return (
@@ -12,8 +14,10 @@ const AppNavigator = () => {
         <Routes>
         <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="signup" element={<Registration />} />
+            <Route path="blogs" element={<PostPage />} />
+            <Route path="users" element={<UserPage />} />
             <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Registration />} />
             <Route path="*" element={<Home />} />
             </Route>
         </Routes>
