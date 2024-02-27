@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { AccountApi } from "../apis/index";
 import { AccountRegistrationDto } from '../apis/model/AccountRegistrationDto';
+import { useNavigate } from 'react-router-dom';
 
 function Registration() {
   const [formData, setFormData] = useState({
@@ -16,22 +17,26 @@ function Registration() {
   });
 
   const handleChange = (event) => {
+    console.log(event.target.value);
     setFormData(values => ({
-      ...values,
-       [event.target.name]: event.target.value
+      ...formData,
+      [event.target.name]: event.target.value
     }))
   };
 
   const accountApi = new AccountApi();
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = useCallback((event) => {
     event.preventDefault(); // Prevent default form submission
 
     console.log('Form submitted:', formData);
-    accountApi.register(formData, (a) => {
-      console.log(a);
+    accountApi.register(formData, (error, data, response) => {
+      if (!error) {
+        navigate('/login');
+      }
     })
-  };
+  }, [formData, navigate]);
 
   return (
     <div className="container mt-5">

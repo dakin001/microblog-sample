@@ -461,7 +461,7 @@ export class ApiClient {
         request.end((error, response) => {
             if(error){
                 let data = this.deserialize(response, returnType);
-                toast.info('An error occurred. '+ data);
+                toast.info( data);
                 console.log(data);
             }
 

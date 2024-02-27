@@ -62,9 +62,7 @@ export class UserApi {
       let pathParams = {
         
       };
-      let queryParams = {
-        'queryDto': queryDto
-      };
+      
       let headerParams = {
         
       };
@@ -79,7 +77,7 @@ export class UserApi {
 
       return this.apiClient.callApi(
         '/users', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
+        pathParams, queryDto, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
     }
@@ -159,9 +157,7 @@ export class UserApi {
       let pathParams = {
         'userId': userId
       };
-      let queryParams = {
-        'queryDto': queryDto
-      };
+     
       let headerParams = {
         
       };
@@ -176,7 +172,7 @@ export class UserApi {
 
       return this.apiClient.callApi(
         '/users/{userId}/followers', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
+        pathParams, queryDto, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
     }
@@ -210,9 +206,7 @@ export class UserApi {
       let pathParams = {
         'userId': userId
       };
-      let queryParams = {
-        'queryDto': queryDto
-      };
+ 
       let headerParams = {
         
       };
@@ -227,7 +221,7 @@ export class UserApi {
 
       return this.apiClient.callApi(
         '/users/{userId}/following', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
+        pathParams, queryDto, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
     }
