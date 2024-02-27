@@ -71,7 +71,7 @@ export class AccountApi {
         
       };
 
-      let authNames = ['bearerAuth'];
+      let authNames = [];
       let contentTypes = ['application/json'];
       let accepts = ['*/*'];
       let returnType = Object;

@@ -72,7 +72,7 @@ export class PostApi {
         
       };
 
-      let authNames = ['bearerAuth'];
+      let authNames = [];
       let contentTypes = ['application/json'];
       let accepts = [];
       let returnType = null;
@@ -119,7 +119,7 @@ export class PostApi {
         
       };
 
-      let authNames = ['bearerAuth'];
+      let authNames = [];
       let contentTypes = [];
       let accepts = ['text/event-stream'];
       let returnType = ResponseBodyEmitter;

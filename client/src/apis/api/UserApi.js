@@ -72,7 +72,7 @@ export class UserApi {
         
       };
 
-      let authNames = ['bearerAuth'];
+      let authNames = [];
       let contentTypes = [];
       let accepts = ['*/*'];
       let returnType = User;
@@ -169,7 +169,7 @@ export class UserApi {
         
       };
 
-      let authNames = ['bearerAuth'];
+      let authNames = [];
       let contentTypes = [];
       let accepts = ['*/*'];
       let returnType = PageResultUser;
@@ -220,7 +220,7 @@ export class UserApi {
         
       };
 
-      let authNames = ['bearerAuth'];
+      let authNames = [];
       let contentTypes = [];
       let accepts = ['*/*'];
       let returnType = PageResultUser;
@@ -266,7 +266,7 @@ export class UserApi {
         
       };
 
-      let authNames = ['bearerAuth'];
+      let authNames = [];
       let contentTypes = [];
       let accepts = [];
       let returnType = null;

@@ -1,18 +1,10 @@
 import React, { useState } from 'react';
 import { AccountApi } from "../apis/index";
-import { AccountRegistrationDto } from '../apis/model/AccountRegistrationDto';
 
-function Registration() {
+function Login() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-
-    // name: 'user11',
-    // email: 'user11@example.com',
-    // password: '123',
-    // confirmPassword: '123',
+    nameOrEmail: 'user11',
+    password: '123',
   });
 
   const handleChange = (event) => {
@@ -20,16 +12,17 @@ function Registration() {
       ...values,
        [event.target.name]: event.target.value
     }))
-  };
+  }
 
   const accountApi = new AccountApi();
 
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent default form submission
 
-    console.log('Form submitted:', formData);
-    accountApi.register(formData, (a) => {
-      console.log(a);
+    accountApi.login(formData,(error, data, response)=>{
+  
+window.location = "/posts";
+ 
     })
   };
 
@@ -44,49 +37,27 @@ function Registration() {
                 type="text"
                 className="form-control"
                 id="name"
-                name="name"
-                placeholder="Name"
-                value={formData.name}
+                name="nameOrEmail" 
+                placeholder="Name/Email"
+                value={formData.nameOrEmail}
                 onChange={handleChange}
                 required
               />
             </div>
-            <div className="mb-3">
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
+           
             <div className="mb-3">
               <input
                 type="password"
                 className="form-control"
                 id="password"
-                name="password"
+                name="password" 
                 placeholder='Password'
                 value={formData.password}
                 onChange={handleChange}
                 required
               />
             </div>
-            <div className="mb-3">
-              <input
-                type="password"
-                className="form-control"
-                id="confirmPassword"
-                name="confirmPassword"
-                placeholder='Confirm Password'
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-              />
-            </div>
+             
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>
         </div>
@@ -95,4 +66,4 @@ function Registration() {
   );
 }
 
-export default Registration;
+export default Login;
