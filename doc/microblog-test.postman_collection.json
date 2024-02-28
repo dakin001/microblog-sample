@@ -92,7 +92,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nameOrEmail\": \"user2\",\n    \"password\": \"123\"\n}"
+							"raw": "{\n    \"nameOrEmail\": \"user11\",\n    \"password\": \"123456\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/account/login",
@@ -175,7 +175,7 @@
 							"raw": "{}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/user1/follow",
+							"raw": "http://localhost:8080/users/1/follow",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -183,7 +183,7 @@
 							"port": "8080",
 							"path": [
 								"users",
-								"user1",
+								"1",
 								"follow"
 							]
 						}
@@ -209,7 +209,7 @@
 							"raw": "{}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/user2/unfollow",
+							"raw": "http://localhost:8080/users/2/unfollow",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -217,7 +217,7 @@
 							"port": "8080",
 							"path": [
 								"users",
-								"user2",
+								"2",
 								"unfollow"
 							]
 						}
@@ -225,7 +225,7 @@
 					"response": []
 				},
 				{
-					"name": "users/{userName}/following",
+					"name": "users/{userId}/following",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -246,7 +246,7 @@
 							"raw": "{}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/user1/following",
+							"raw": "http://localhost:8080/users/1/following",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -254,7 +254,7 @@
 							"port": "8080",
 							"path": [
 								"users",
-								"user1",
+								"1",
 								"following"
 							]
 						}
@@ -262,7 +262,7 @@
 					"response": []
 				},
 				{
-					"name": "users/{userName}/followers",
+					"name": "users/{userId}/followers",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -283,7 +283,7 @@
 							"raw": "{}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/user1/followers",
+							"raw": "http://localhost:8080/users/1/followers",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -291,7 +291,7 @@
 							"port": "8080",
 							"path": [
 								"users",
-								"user1",
+								"1",
 								"followers"
 							]
 						}
@@ -371,7 +371,7 @@
 					"response": []
 				},
 				{
-					"name": "feed/{userName}",
+					"name": "feed/{userId}",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -392,7 +392,7 @@
 							"raw": "{}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/feed/user1",
+							"raw": "http://localhost:8080/feed/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -400,7 +400,14 @@
 							"port": "8080",
 							"path": [
 								"feed",
-								"user1"
+								"2"
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": "10",
+									"disabled": true
+								}
 							]
 						}
 					},
