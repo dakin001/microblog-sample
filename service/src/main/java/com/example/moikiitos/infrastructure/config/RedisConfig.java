@@ -46,9 +46,9 @@ public class RedisConfig {
         om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         om.registerModule(timeModule);
 
-        Jackson2JsonRedisSerializer<?> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(om, Object.class);
+        Jackson2JsonRedisSerializer<?> serializer = new Jackson2JsonRedisSerializer<>(om, Object.class);
 
-        template.setValueSerializer(jackson2JsonRedisSerializer);
+        template.setValueSerializer(serializer);
 
         return template;
     }

@@ -32,7 +32,7 @@ public class AccountController {
 
     @Operation(summary = "user login", description = "user login to the system", tags = {"account"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "login successful"),
+            @ApiResponse(responseCode = "200", description = "login successful"),
             @ApiResponse(responseCode = "400", description = "account or password not correct")})
 
     @PostMapping("login")

@@ -47,7 +47,7 @@ class AccountServiceImplTest {
         var argCaptor = ArgumentCaptor.forClass(Account.class);
         verify(repository, Mockito.times(1)).add(argCaptor.capture());
         Account account = argCaptor.getValue();
-        assertNotEquals(registrationDto.getPassword(), account.getPassword());
+        assertNotEquals(new String(registrationDto.getPassword()), account.getPassword());
     }
 
 
@@ -134,8 +134,7 @@ class AccountServiceImplTest {
         loginDto.setNameOrEmail("Sean");
         loginDto.setPassword("111111".toCharArray());
 
-        Account exitsAccount = null;
-        when(repository.findByName(anyString())).thenReturn(exitsAccount);
+        when(repository.findByName(anyString())).thenReturn(null);
 
         // WHEN
         boolean loginSuccess = service.login(loginDto) != null;

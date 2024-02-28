@@ -16,13 +16,13 @@ public interface FollowerMapper {
     void insert(Follower follower);
 
     @Delete("""
-            DELETE FROM `Follower` 
+            DELETE FROM `Follower`
             WHERE follower_id = #{follower.id} and following_id = #{following.id}
             """)
     void remove(Follower follower);
 
     @Select("""
-            SELECT 1 FROM `Follower` 
+            SELECT 1 FROM `Follower`
             WHERE follower_id = #{follower.id} and following_id = #{following.id} limit 1
             """
     )
