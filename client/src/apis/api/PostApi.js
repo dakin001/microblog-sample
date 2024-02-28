@@ -159,9 +159,7 @@ export class PostApi {
       let pathParams = {
         'userId': userId
       };
-      let queryParams = {
-        'reqDto': reqDto
-      };
+   
       let headerParams = {
         
       };
@@ -176,7 +174,7 @@ export class PostApi {
 
       return this.apiClient.callApi(
         '/feed/{userId}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
+        pathParams, reqDto, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
     }
