@@ -24,7 +24,7 @@ java -jar build/libs/app-server.jar
 ```
 
 4. open swagger-ui  
-> http://localhost:8080/swagger-ui/ 
+> http://localhost:8080/swagger-ui 
 
 ## Other 
 1. build docker image

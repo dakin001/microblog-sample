@@ -28,7 +28,7 @@ mybatis:
 
 
 # swagger configuration
-# please visit http://localhost:8080/swagger-ui/
+# please visit http://localhost:8080/swagger-ui
 springdoc.api-docs.path: /api-docs
 springdoc.api-docs.enabled: true
 springdoc.swagger-ui.path: /swagger-ui
