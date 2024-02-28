@@ -1,4 +1,4 @@
-package com.example.moikiitos.domain.shared.mq.impl;
+package com.example.moikiitos.infrastructure.mq.impl;
 
 import com.example.moikiitos.domain.post.model.Post;
 import com.example.moikiitos.domain.post.service.FeedService;
