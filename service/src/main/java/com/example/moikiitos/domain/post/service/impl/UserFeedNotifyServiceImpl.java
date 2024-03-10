@@ -1,7 +1,9 @@
 package com.example.moikiitos.domain.post.service.impl;
 
 import com.example.moikiitos.domain.post.model.Post;
+import com.example.moikiitos.domain.post.repository.SessionCacheRepository;
 import com.example.moikiitos.domain.post.service.UserFeedNotifyService;
+import com.example.moikiitos.domain.shared.AppConfig;
 import com.example.moikiitos.infrastructure.sse.SseEmitterServer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter
 @RequiredArgsConstructor
 public class UserFeedNotifyServiceImpl implements UserFeedNotifyService {
     private final SseEmitterServer sseEmitterServer;
+    private final AppConfig appConfig;
+    private final SessionCacheRepository repository;
 
     @Override
     public void notify(Long userId, Post obj) {
@@ -24,7 +28,11 @@ public class UserFeedNotifyServiceImpl implements UserFeedNotifyService {
     public ResponseBodyEmitter subscribe(Long userId) {
         // todo register userId's connections , same user may have multiple connections
         String connectionId = String.valueOf(userId);
-        return sseEmitterServer.connect(connectionId);
+        var result = sseEmitterServer.connect(connectionId);
+        String sessionID = String.format("{0};{1}", appConfig.getUrl(), connectionId);
+        repository.add(userId, sessionID);
+        return result;
+
     }
 
     private void publish(String connectionId, Post obj) {
