@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FeedQueryDto, PostApi } from "../apis/index";
-import Follow from '../components/Follow';
+import MyFollow from '../components/MyFollow';
 
 function PostPage() {
   const [formData, setFormData] = useState({
@@ -15,14 +15,6 @@ function PostPage() {
 
   const [feed, setFeedData] = useState({
     items: []
-  });
-
-  const [userData, setUserData] = useState({
-    name: '',
-    followingCount: 0,
-    followerCount: 0,
-    following: [],
-    followers: [],
   });
 
   const postApi = new PostApi();
@@ -55,7 +47,7 @@ function PostPage() {
     <div className="container mt-5">
       <div className="row">
         <div className="col-3">
-          <Follow user={userData} />
+          <MyFollow />
         </div>
         <div className="col-9">
           <div className="card">
@@ -85,7 +77,7 @@ function PostPage() {
 
           <ul className="list-group">
             {feed.items.map((item) =>
-              <li className="list-group-item d-flex justify-content-between align-items-start">
+              <li key={item.id} className="list-group-item d-flex justify-content-between align-items-start">
                 <div className="ms-2 me-auto container">
                   <div className="row">
                     <div className="col-2 fw-bold">{item.user.name}</div>

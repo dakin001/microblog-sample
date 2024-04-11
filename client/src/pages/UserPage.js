@@ -18,7 +18,7 @@ function UserPage() {
 
   const handleChange = (event) => {
     setFormData(values => ({
-      ...formData,
+      ...values,
       [event.target.name]: event.target.value
     }))
   }
@@ -32,39 +32,51 @@ function UserPage() {
       }
       // setUserData(data||{});
       setUserData(values => ({
-        ...userData,
+        ...values,
         'id': data.id,
         'name': data.name
       }));
 
-      userApi.listFollowers(data.id, {}, (error, data, response) => {
-        if (error) {
-          return;
-        }
-        setUserData(values => ({
-          ...userData,
-          followers: data.items,
-          followerCount: data.total,
-        }));
-      });
-
-      userApi.listFollowing(data.id, {}, (error, data, response) => {
-        if (error) {
-          return;
-        }
-        setUserData(values => ({
-          ...userData,
-          following: data.items,
-          followingCount: data.total,
-        }));
-      });
+      loadFollow(data.id);
     });
 
-  }, [formData, userData]);
+  }, [formData]);
 
   useEffect(() => {
+    let loginUser = JSON.parse( localStorage.getItem("user")) ; 
+ 
+    setUserData(values => ({
+      ...values,
+      'id': loginUser.id,
+      'name': loginUser.name,
+    }));
 
+    loadFollow(loginUser.id);
   }, []);
+
+  const loadFollow = (userId)=>{
+    userApi.listFollowers(userId, {}, (error, data, response) => {
+      if (error) {
+        return;
+      }
+      setUserData(values => ({
+        ...values,
+        followers: data.items,
+        followerCount: data.total,
+      }));
+    });
+
+    userApi.listFollowing(userId, {}, (error, data, response) => {
+      if (error) {
+        return;
+      }
+      setUserData(values => ({
+        ...values,
+        following: data.items,
+        followingCount: data.total,
+      }));
+    });
+  }
 
   return (
     <div className="container mt-5">
@@ -110,7 +122,7 @@ function UserPage() {
           <div className="mb-2"> </div>
           <ul className="list-group">
             {userData.following.map((item) =>
-              <li className="list-group-item d-flex justify-content-between align-items-start">
+              <li key={item.id} className="list-group-item d-flex justify-content-between align-items-start">
                 <div className="ms-2 me-auto container">
                   <div className="row">
                     <div className="col-2 fw-bold">{item.name}</div>
