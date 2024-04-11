@@ -5,6 +5,7 @@ import Registration from '../pages/Registration'; // Replace with your component
 import Layout from "./Layout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Logout from "../pages/Logout";
 import UserPage from "../pages/UserPage";
 import PostPage from "../pages/PostPage";
 
@@ -17,6 +18,7 @@ function AppNavigator() {
           <Route path="feed" element={<PostPage />} />
           <Route path="users" element={<UserPage />} />
           <Route path="login" element={<Login />} />
+          <Route path="logout" element={<Logout />} />
           <Route path="signup" element={<Registration />} />
           <Route path="*" element={<PostPage />} />
         </Route>

@@ -16,6 +16,8 @@ function UserPage() {
     followers: [],
   });
 
+  const [tabIndex, setTabIndex] = useState(0);
+
   const handleChange = (event) => {
     setFormData(values => ({
       ...values,
@@ -27,7 +29,7 @@ function UserPage() {
     event.preventDefault(); // Prevent default form submission
 
     userApi.findUser(formData, (error, data, response) => {
-      if (error) {
+      if (error || !data) {
         return;
       }
       // setUserData(data||{});
@@ -43,8 +45,8 @@ function UserPage() {
   }, [formData]);
 
   useEffect(() => {
-    let loginUser = JSON.parse( localStorage.getItem("user")) ; 
- 
+    let loginUser = JSON.parse(localStorage.getItem("user"));
+
     setUserData(values => ({
       ...values,
       'id': loginUser.id,
@@ -54,7 +56,7 @@ function UserPage() {
     loadFollow(loginUser.id);
   }, []);
 
-  const loadFollow = (userId)=>{
+  const loadFollow = (userId) => {
     userApi.listFollowers(userId, {}, (error, data, response) => {
       if (error) {
         return;
@@ -111,28 +113,45 @@ function UserPage() {
           <div className="mb-4"> </div>
 
           <ul className="nav nav-tabs">
-            <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">Following</a>
+            <li className="nav-item" onClick={() => setTabIndex(0)}>
+              <a className={'nav-link ' + (tabIndex == 0 ? 'active' : '')} aria-current="page" href="#">Following</a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Follower</a>
+            <li className="nav-item" onClick={() => setTabIndex(1)}>
+              <a className={'nav-link ' + (tabIndex == 1 ? 'active' : '')} href="#" >Follower</a>
             </li>
 
           </ul>
           <div className="mb-2"> </div>
-          <ul className="list-group">
-            {userData.following.map((item) =>
-              <li key={item.id} className="list-group-item d-flex justify-content-between align-items-start">
-                <div className="ms-2 me-auto container">
-                  <div className="row">
-                    <div className="col-2 fw-bold">{item.name}</div>
+          {
+            tabIndex == 0 ?
+              <ul className="list-group">
+                {userData.following.map((item) =>
+                  <li key={item.id} className="list-group-item d-flex justify-content-between align-items-start">
+                    <div className="ms-2 me-auto container">
+                      <div className="row">
+                        <div className="col-2 fw-bold">{item.name}</div>
 
-                    <div className="col-10">{item.email}</div>
-                  </div></div>
+                        <div className="col-10">{item.email}</div>
+                      </div></div>
 
-              </li>
-            )}
-          </ul>
+                  </li>
+                )}
+              </ul>
+              :
+              <ul className="list-group">
+                {userData.followers.map((item) =>
+                  <li key={item.id} className="list-group-item d-flex justify-content-between align-items-start">
+                    <div className="ms-2 me-auto container">
+                      <div className="row">
+                        <div className="col-2 fw-bold">{item.name}</div>
+
+                        <div className="col-10">{item.email}</div>
+                      </div></div>
+                  </li>
+                )}
+              </ul>
+          }
+
         </div>
       </div>
 

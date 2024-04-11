@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useContext } from 'react';
 import { AccountApi } from "../apis/index";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
+import AuthContext from '../components/AuthContext';
 
 
 function Login() {
@@ -19,21 +19,21 @@ function Login() {
     console.log(formData);
   }
 
+  const authContext = useContext(AuthContext)
   const accountApi = new AccountApi();
   const navigate = useNavigate();
-
-  const handleSubmit = useCallback( (event) => {
+  const handleSubmit = useCallback((event) => {
     event.preventDefault(); // Prevent default form submission
     console.log(formData);
     accountApi.login(formData, (error, data, response) => {
-      if(!error){
-        localStorage.setItem("user", JSON.stringify(data));
+      if (!error) {
         toast.info('login sucessful.');
-       
+
+        authContext.login(data)
         navigate('/feed')
       }
     })
-  },[formData, navigate]);
+  }, [formData, navigate]);
 
   return (
     <div className="container mt-5">
